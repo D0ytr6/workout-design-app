@@ -1,4 +1,4 @@
-package com.example.samurairoad.home
+package com.example.samurairoad.ui.home
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle

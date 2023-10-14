@@ -8,6 +8,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.samurairoad.databinding.ActivityMainBinding
+import com.example.samurairoad.room.WorkoutDatabase
+import com.example.samurairoad.room.tables.WorkoutTableModel
 
 class MainActivity : AppCompatActivity() {
 

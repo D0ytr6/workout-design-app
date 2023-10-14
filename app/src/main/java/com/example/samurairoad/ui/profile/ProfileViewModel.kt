@@ -1,4 +1,4 @@
-package com.example.samurairoad.profile
+package com.example.samurairoad.ui.profile
 
 import androidx.lifecycle.ViewModel
 

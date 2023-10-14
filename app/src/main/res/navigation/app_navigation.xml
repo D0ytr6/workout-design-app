@@ -7,26 +7,37 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.samurairoad.home.HomeFragment"
+        android:name="com.example.samurairoad.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/activitiesFragment"
-        android:name="com.example.samurairoad.activities.ActivitiesFragment"
+        android:name="com.example.samurairoad.ui.activities.ActivitiesFragment"
         android:label="fragment_activities"
-        tools:layout="@layout/fragment_activities" />
+        tools:layout="@layout/fragment_activities" >
+        <action
+            android:id="@+id/action_activitiesFragment_to_createWorkoutFragment"
+            app:destination="@id/createWorkoutFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.samurairoad.settings.SettingsFragment"
+        android:name="com.example.samurairoad.ui.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.samurairoad.profile.ProfileFragment"
+        android:name="com.example.samurairoad.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/createWorkoutFragment"
+        android:name="com.example.samurairoad.ui.activities.CreateWorkoutFragment"
+        android:label="CreateWorkoutFragment"
+        tools:layout="@layout/create_workout_fragment"
+        />
 
 </navigation>

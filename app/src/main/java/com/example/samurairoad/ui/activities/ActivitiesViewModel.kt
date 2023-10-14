@@ -1,4 +1,4 @@
-package com.example.samurairoad.activities
+package com.example.samurairoad.ui.activities
 
 import androidx.lifecycle.ViewModel
 

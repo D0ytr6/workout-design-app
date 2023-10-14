@@ -1,4 +1,4 @@
-package com.example.samurairoad.home
+package com.example.samurairoad.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
