@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_activitiesFragment_to_createWorkoutFragment"
             app:destination="@id/createWorkoutFragment" />
+        <action
+            android:id="@+id/action_activitiesFragment_to_workoutsListFragment"
+            app:destination="@id/workoutsListFragment" />
     </fragment>
 
     <fragment
@@ -38,6 +41,13 @@
         android:name="com.example.samurairoad.ui.activities.CreateWorkoutFragment"
         android:label="CreateWorkoutFragment"
         tools:layout="@layout/create_workout_fragment"
+        />
+    <fragment
+        android:id="@+id/workoutsListFragment"
+        android:name="com.example.samurairoad.ui.activities.WorkoutsListFragment"
+        android:label="WorkoutsListFragment"
+        tools:layout="@layout/fragment_workouts_list"
+
         />
 
 </navigation>

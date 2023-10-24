@@ -31,6 +31,10 @@ class ActivitiesFragment : Fragment() {
             openCreateWorkout()
         })
 
+        binding.allWorkoutsBtn.setOnClickListener{
+            openAllWorkout()
+        }
+
         return binding.root
     }
 
@@ -41,6 +45,10 @@ class ActivitiesFragment : Fragment() {
 
     private fun openCreateWorkout(){
         findNavController().navigate(R.id.action_activitiesFragment_to_createWorkoutFragment)
+    }
+
+    private fun openAllWorkout(){
+        findNavController().navigate(R.id.action_activitiesFragment_to_workoutsListFragment)
     }
 
 }

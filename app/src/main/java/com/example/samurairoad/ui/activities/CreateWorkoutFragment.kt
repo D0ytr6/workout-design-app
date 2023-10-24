@@ -33,9 +33,6 @@ class CreateWorkoutFragment : Fragment() {
                 createWorkoutViewModel.insertWorkout(requireContext(), binding.workoutTitle.text.toString(), binding.workoutDescription.text.toString())
             }
         }
-
-//        save_workout_btn = binding.root.save
-
         return root
     }
 

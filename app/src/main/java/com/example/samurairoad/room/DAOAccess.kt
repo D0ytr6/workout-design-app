@@ -21,7 +21,7 @@ interface DAOAccess {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertWorkoutData(workoutData: WorkoutDataTableModel)
 
-    @Query("Select * from workout")
-    fun getAllWorkouts(): LiveData<List<WorkoutTableModel>>
+    @Query("SELECT * FROM workout")
+    suspend fun getAllWorkouts(): List<WorkoutTableModel>
 
 }
