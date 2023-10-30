@@ -13,11 +13,15 @@ data class ExerciseTableModel(
     @ColumnInfo(name = "description")
     var Description: String,
 
-    @ColumnInfo(name = "circle_count")
-    var CircleCount: Int,
+    @ColumnInfo(name = "sets")
+    var SetsCount: Int,
 
-    @ColumnInfo(name = "repetitions_count")
-    var RepetitionsCount: Int,
+    @ColumnInfo(name = "reps")
+    var RepsCount: Int,
+
+    @ColumnInfo(name = "weight")
+    var weightValue: Int
+
 
     // Todo image blob
 

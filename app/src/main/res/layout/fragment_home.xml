@@ -84,49 +84,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
                 android:background="@drawable/today_activity_background">
 
                 <TextView
                     android:id="@+id/tv_today_activity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginStart="20dp"
                     android:layout_marginTop="20dp"
+                    android:fontFamily="@font/shoika_semi"
                     android:lines="2"
                     android:text="Today`s\nactivity"
-                    android:fontFamily="@font/shoika_semi"
-                    android:textSize="24sp"
                     android:textColor="@color/black"
+                    android:textSize="24sp"
                     android:textStyle="bold"
-                    />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/tv_today_activity"
-                    app:layout_constraintTop_toBottomOf="@id/tv_today_activity"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:text="Walking - 2 km"
                     android:textSize="15sp"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/tv_today_activity"
+                    app:layout_constraintTop_toBottomOf="@id/tv_today_activity" />
 
                 <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="30dp"
                     android:layout_marginBottom="20dp"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@drawable/img"
-                    />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-            
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

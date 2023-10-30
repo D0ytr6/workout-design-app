@@ -38,9 +38,9 @@
 
     <fragment
         android:id="@+id/createWorkoutFragment"
-        android:name="com.example.samurairoad.ui.activities.CreateWorkoutFragment"
+        android:name="com.example.samurairoad.ui.activities.CreateExerciseFragment"
         android:label="CreateWorkoutFragment"
-        tools:layout="@layout/create_workout_fragment"
+        tools:layout="@layout/create_exercise_fragment"
         />
     <fragment
         android:id="@+id/workoutsListFragment"

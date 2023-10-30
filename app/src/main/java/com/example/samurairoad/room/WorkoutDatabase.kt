@@ -8,7 +8,7 @@ import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutDataTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
 
-@Database(entities = [WorkoutTableModel::class, ExerciseTableModel::class, WorkoutDataTableModel::class], version = 1, exportSchema = false)
+@Database(entities = [WorkoutTableModel::class, ExerciseTableModel::class, WorkoutDataTableModel::class], version = 2, exportSchema = false)
 abstract class WorkoutDatabase : RoomDatabase() {
 
     abstract fun getDao(): DAOAccess
@@ -23,7 +23,7 @@ abstract class WorkoutDatabase : RoomDatabase() {
             if (INSTANCE != null) return INSTANCE!!
 
             synchronized(this) {
-                INSTANCE = Room.databaseBuilder(context, WorkoutDatabase::class.java, "workouts.db").build()
+                INSTANCE = Room.databaseBuilder(context, WorkoutDatabase::class.java, "workouts.db").fallbackToDestructiveMigration().build()
                 return INSTANCE!!
             }
 

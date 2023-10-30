@@ -19,7 +19,6 @@ class WorkoutAdapter : RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() 
         set(newValue){
             field = newValue
             newValue.forEach {Log.d("MyTag", "Adapter $it")  }
-
 //             update visible list
             notifyDataSetChanged()
         }

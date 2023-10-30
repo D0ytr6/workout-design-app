@@ -5,6 +5,8 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.samurairoad.room.WorkoutDatabase
+import com.example.samurairoad.room.tables.ExerciseTableModel
+import com.example.samurairoad.room.tables.WorkoutDataTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
@@ -35,19 +37,35 @@ class WorkoutRepository {
 
         }
 
-        fun insertWorkout(context: Context, title: String, description: String){
+        suspend fun insertWorkout(context: Context, title: String, description: String){
+
+            workoutDatabase = initDB(context)
+
+            val workout: WorkoutTableModel = WorkoutTableModel(title, description)
+            workoutDatabase!!.getDao().insertWorkout(workout)
+
+        }
+
+        suspend fun insertExercise(context: Context, title: String, description: String, sets: Int, reps: Int, weight: Int){
+
+            workoutDatabase = initDB(context)
+
+            val exercise: ExerciseTableModel = ExerciseTableModel(title, description, sets, reps, weight)
+            workoutDatabase!!.getDao().insertExercise(exercise)
+
+        }
+
+        fun insertWorkoutData(context: Context, workout_name: WorkoutTableModel, exercise: ExerciseTableModel){
 
             workoutDatabase = initDB(context)
 
             CoroutineScope(IO).launch {
-                val workout: WorkoutTableModel = WorkoutTableModel(title, description)
-                workoutDatabase!!.getDao().insertWorkout(workout)
-
+                val workoutData: WorkoutDataTableModel = WorkoutDataTableModel(workout_name.Id!!, exercise.Id!!)
+                workoutDatabase!!.getDao().insertWorkoutData(workoutData)
             }
-
         }
 
-        fun logCurrentThread(){
+        private fun logCurrentThread(){
             Log.d("MyTag", "Current Thread " + Thread.currentThread().name)
         }
 

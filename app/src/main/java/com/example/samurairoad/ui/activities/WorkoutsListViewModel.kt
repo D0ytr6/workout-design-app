@@ -17,10 +17,25 @@ class WorkoutsListViewModel : ViewModel() {
     // fragment only listening, changing only in view model
     val workouts: LiveData<List<WorkoutTableModel>> = _workouts
 
+    // TODO remake this method, hard code
     fun getWorkouts(context: Context){
         viewModelScope.launch {
             _workouts.value = WorkoutRepository.getAllWorkouts(context)
             Log.d("MyTag", "ViewModel " + _workouts.value?.size.toString())
+        }
+    }
+
+    fun insertWorkout(context: Context, title: String, description: String){
+        viewModelScope.launch {
+            WorkoutRepository.insertWorkout(context, title, description)
+            getWorkouts(context)
+        }
+    }
+
+    fun insertExercise(context: Context, title: String, description: String,
+                       sets:Int, reps: Int, weight: Int){
+        viewModelScope.launch {
+            WorkoutRepository.insertExercise(context, title, description, sets, reps, weight)
         }
     }
 

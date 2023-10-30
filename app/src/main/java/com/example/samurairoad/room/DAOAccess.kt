@@ -1,10 +1,7 @@
 package com.example.samurairoad.room
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutDataTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
@@ -23,5 +20,14 @@ interface DAOAccess {
 
     @Query("SELECT * FROM workout")
     suspend fun getAllWorkouts(): List<WorkoutTableModel>
+
+    @Query("SELECT * FROM exercise")
+    suspend fun getAllExercises(): List<ExerciseTableModel>
+
+    @Delete
+    suspend fun deleteWorkout(workout: WorkoutTableModel)
+
+    @Delete
+    suspend fun deleteExercise(exercise: ExerciseTableModel)
 
 }

@@ -1,19 +1,20 @@
 package com.example.samurairoad.ui.activities
 
-import androidx.lifecycle.ViewModelProvider
+import android.R
+import android.app.Dialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.get
-import androidx.recyclerview.widget.LinearLayoutManager
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.samurairoad.R
 import com.example.samurairoad.adapters.WorkoutAdapter
-import com.example.samurairoad.databinding.CreateWorkoutFragmentBinding
+import com.example.samurairoad.databinding.AddWorkoutDialogBinding
 import com.example.samurairoad.databinding.FragmentWorkoutsListBinding
+
 
 class WorkoutsListFragment : Fragment() {
 
@@ -40,11 +41,40 @@ class WorkoutsListFragment : Fragment() {
 
         binding.workoutListRv.adapter = adapter
 
+        val dialog = Dialog(requireContext())
+
+        // subscribe on view model data
         viewModel.workouts.observe(viewLifecycleOwner){
-            Log.d("MyTag", "Fragment" + it.size.toString())
+            Log.d("MyTag", "Fragment " + it.size.toString())
             adapter.workouts = it
         }
 
+        binding.fabBtnCreateWorkout.setOnClickListener {
+            var dialogBinding = AddWorkoutDialogBinding.inflate(inflater)
+
+            dialogBinding.CancelButton.setOnClickListener {
+                dialog.dismiss()
+                Toast.makeText(requireContext(), "Cancel", Toast.LENGTH_SHORT).show()
+            }
+
+            dialogBinding.SaveButton.setOnClickListener {
+                if(!dialogBinding.nameEt.text.equals("") and !dialogBinding.descriptionEt.equals("")){
+                    viewModel.insertWorkout(requireContext(), dialogBinding.nameEt.text.toString(), dialogBinding.descriptionEt.text.toString())
+                    dialog.dismiss()
+                }
+            }
+
+            dialog.setContentView(dialogBinding.root)
+
+            dialog.window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+
+            dialog.setCancelable(true)
+            dialog.show()
+
+        }
         return binding.root
     }
 
