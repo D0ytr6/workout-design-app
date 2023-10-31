@@ -178,6 +178,7 @@
                 android:background="@drawable/sets_reps_box">
 
                 <Button
+                    android:id="@+id/pick_img_btn"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:background="@drawable/background_add_photo_btn"
@@ -213,8 +214,14 @@
                 android:layout_marginTop="20dp"
                 android:hint="Save youtube video" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:id="@+id/testImgPick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </ScrollView>
 

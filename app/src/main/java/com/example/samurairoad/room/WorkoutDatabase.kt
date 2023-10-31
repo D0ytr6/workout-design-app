@@ -4,11 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.samurairoad.model.Converters
 import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutDataTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
 
-@Database(entities = [WorkoutTableModel::class, ExerciseTableModel::class, WorkoutDataTableModel::class], version = 2, exportSchema = false)
+@Database(entities = [WorkoutTableModel::class, ExerciseTableModel::class, WorkoutDataTableModel::class], version = 3, exportSchema = false)
+@TypeConverters(Converters::class)
 abstract class WorkoutDatabase : RoomDatabase() {
 
     abstract fun getDao(): DAOAccess

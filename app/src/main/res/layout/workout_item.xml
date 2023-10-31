@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -17,33 +18,36 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
             <TextView
                 android:id="@+id/title_tv"
-                android:text="My Workout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="My Workout"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/description_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
-                />
+                android:textSize="15sp"
+                android:text="Description"
+                android:textColor="@color/white" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/child_recycler"
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/exercise_item" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.cardview.widget.CardView>
-
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

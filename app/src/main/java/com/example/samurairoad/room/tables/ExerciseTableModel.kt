@@ -1,5 +1,6 @@
 package com.example.samurairoad.room.tables
 
+import android.graphics.Bitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -20,9 +21,10 @@ data class ExerciseTableModel(
     var RepsCount: Int,
 
     @ColumnInfo(name = "weight")
-    var weightValue: Int
+    var weightValue: Int,
 
-
+    @ColumnInfo(name = "exercise_photo")
+    var exercisePhoto: Bitmap
     // Todo image blob
 
 ){

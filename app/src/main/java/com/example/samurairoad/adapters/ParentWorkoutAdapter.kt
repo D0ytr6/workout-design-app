@@ -3,19 +3,19 @@ package com.example.samurairoad.adapters
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.samurairoad.databinding.WorkoutItemBinding
-import com.example.samurairoad.model.WorkoutState
-import com.example.samurairoad.room.tables.WorkoutTableModel
 
-class WorkoutAdapter : RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>()  {
+class ParentWorkoutAdapter : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutViewHolder>()  {
 
-//    create view holder
+//    create view holder class
     class WorkoutViewHolder(
         var binding: WorkoutItemBinding
     ) : RecyclerView.ViewHolder(binding.root){}
 
-    var workouts = emptyList<WorkoutTableModel>()
+    // workouts list for showing
+    var workouts = emptyList<Workout>()
         set(newValue){
             field = newValue
             newValue.forEach {Log.d("MyTag", "Adapter $it")  }
@@ -30,10 +30,17 @@ class WorkoutAdapter : RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() 
     }
 
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
-        var current_workout = workouts[position]
+        val currentWorkout = workouts[position]
         with(holder){
-            binding.titleTv.text = current_workout.Title
-            binding.descriptionTv.text = current_workout.Description
+            binding.titleTv.text = currentWorkout.title
+            binding.descriptionTv.text = currentWorkout.description
+
+            // setup child recycler
+            val childAdapter = ChildExerciseAdapter()
+            childAdapter.exercises = currentWorkout.exercises_list
+            // TODO how i get here a context???
+            binding.childRecycler.layoutManager = LinearLayoutManager(binding.childRecycler.context, LinearLayoutManager.VERTICAL, false)
+            binding.childRecycler.adapter = childAdapter
         }
 
     }
