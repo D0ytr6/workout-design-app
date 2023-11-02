@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
+import com.example.samurairoad.repository.WorkoutRepository.Companion.workoutDatabase
 import com.example.samurairoad.room.WorkoutDatabase
 import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutDataTableModel
@@ -55,6 +56,30 @@ class WorkoutRepository {
             return exercises
         }
 
+        suspend fun getExerciseByID(context: Context, id: Long): ExerciseTableModel{
+            workoutDatabase = initDB(context)
+            return workoutDatabase!!.getDao().getExercisesById(id)
+        }
+
+        suspend fun getWorkoutByID(context: Context, id: Long): WorkoutTableModel{
+            workoutDatabase = initDB(context)
+            return workoutDatabase!!.getDao().getWorkoutById(id)
+        }
+
+
+        // TODO return value can be a null
+        suspend fun getWorkoutByName(context: Context, title: String): WorkoutTableModel {
+            workoutDatabase = initDB(context)
+            return workoutDatabase!!.getDao().getWorkoutByName(title)
+        }
+
+        suspend fun getExercisesIdFromWorkouts(context: Context, workout_id: Long): List<Long>{
+            workoutDatabase = initDB(context)
+            val list = workoutDatabase!!.getDao().getExercisesIdFromWorkouts(workout_id)
+            return list
+
+        }
+
         suspend fun insertWorkout(context: Context, title: String, description: String){
 
             workoutDatabase = initDB(context)
@@ -64,24 +89,29 @@ class WorkoutRepository {
 
         }
 
-        suspend fun insertExercise(context: Context, title: String, description: String, sets: Int, reps: Int, weight: Int, bitmapImg: Bitmap){
+        suspend fun insertExercise(context: Context, title: String, description: String, sets: Int, reps: Int, weight: Int, bitmapImg: Bitmap): Long{
 
             workoutDatabase = initDB(context)
 
             val exercise: ExerciseTableModel = ExerciseTableModel(title, description, sets, reps, weight, bitmapImg)
-            workoutDatabase!!.getDao().insertExercise(exercise)
+            val id = workoutDatabase!!.getDao().insertExercise(exercise)
+            return id
 
         }
 
-        fun insertWorkoutData(context: Context, workout_name: WorkoutTableModel, exercise: ExerciseTableModel){
+//        fun insertWorkoutData(context: Context, workoutTitle: String, workoutDescription: String,
+//                              exerciseTitle: String, exerciseDescription: String, sets: Int, reps: Int, weight: Int, bitmapImg: Bitmap)
+
+        fun insertWorkoutData(context: Context, workoutTableModelID: Long, exerciseTableModelID: Long){
 
             workoutDatabase = initDB(context)
 
             CoroutineScope(IO).launch {
-                val workoutData: WorkoutDataTableModel = WorkoutDataTableModel(workout_name.Id!!, exercise.Id!!)
+                val workoutData: WorkoutDataTableModel = WorkoutDataTableModel(workoutTableModelID, exerciseTableModelID)
                 workoutDatabase!!.getDao().insertWorkoutData(workoutData)
             }
         }
+
 
         private fun logCurrentThread(){
             Log.d("MyTag", "Current Thread " + Thread.currentThread().name)

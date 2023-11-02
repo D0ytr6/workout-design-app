@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import android.widget.Toast
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -33,6 +35,8 @@ class WorkoutsListFragment : Fragment() {
     private var workoutList = listOf<WorkoutTableModel>()
     private var exerciseList = listOf<ExerciseTableModel>()
 
+    private var workoutsShowList = listOf<Workout>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -49,17 +53,9 @@ class WorkoutsListFragment : Fragment() {
 
         val dialog = Dialog(requireContext())
 
-        // subscribe on view model data
-        viewModel.workouts.observe(viewLifecycleOwner){
-            Log.d("MyTag", "Fragment " + it.size.toString())
-            //adapter.workouts = it
-            workoutList = it
-            updateRecyclerList()
-        }
-
-        viewModel.exercises.observe(viewLifecycleOwner){
-            exerciseList = it
-            updateRecyclerList()
+        viewModel.workoutAdapterList.observe(viewLifecycleOwner){
+            workoutsShowList = it
+            adapter.workouts = it
         }
 
         binding.fabBtnCreateWorkout.setOnClickListener {
@@ -88,38 +84,25 @@ class WorkoutsListFragment : Fragment() {
             dialog.show()
 
         }
+
+        binding.materialSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                Toast.makeText(requireContext(), "Turn ON", Toast.LENGTH_SHORT).show()
+                adapter.isFullList = true
+            }
+            else{
+                Toast.makeText(requireContext(), "Turn OFF", Toast.LENGTH_SHORT).show()
+                adapter.isFullList = false
+            }
+
+        })
         return binding.root
-    }
-
-    private fun updateRecyclerList(){
-        val list = roomDataToRecycler()
-        adapter.workouts = list
-    }
-
-    private fun roomDataToRecycler(): List<Workout>{
-
-        var listExercise = mutableListOf<Exercise>()
-        var listWorkout = mutableListOf<Workout>()
-
-        val i: Int = 0
-
-        for(exercise in exerciseList){
-            i.inc()
-            listExercise.add(Exercise(exercise.Title, i))
-        }
-
-        for (workout in workoutList){
-            listWorkout.add(Workout(workout.Title, workout.Description, listExercise))
-        }
-
-        return listWorkout
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getWorkouts(requireContext())
-        viewModel.getExercises(requireContext())
+        viewModel.getAllWorkouts(requireContext())
+        viewModel.getAllExercises(requireContext())
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

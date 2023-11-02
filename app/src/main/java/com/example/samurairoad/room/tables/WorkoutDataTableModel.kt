@@ -22,15 +22,15 @@ import androidx.room.PrimaryKey
 data class WorkoutDataTableModel(
 
     @ColumnInfo(name = "workoutId")
-    var WorkoutID: Int,
+    var WorkoutID: Long,
 
     @ColumnInfo(name = "exerciseId")
-    var ExerciseID: Int,
+    var ExerciseID: Long,
 
 ){
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var Id: Int? = null
+    var Id: Long? = null
 
 }

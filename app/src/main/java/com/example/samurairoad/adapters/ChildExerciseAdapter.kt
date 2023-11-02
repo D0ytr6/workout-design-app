@@ -31,7 +31,8 @@ class ChildExerciseAdapter : RecyclerView.Adapter<ChildExerciseAdapter.ExerciseV
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
         var currentExercise = exercises[position]
         with(holder){
-            binding.exerciseNameTv.text = currentExercise.title
+            val text = currentExercise.serialNumber.toString() + " " + currentExercise.title
+            binding.exerciseNameTv.text = text
         }
     }
 

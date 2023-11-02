@@ -20,7 +20,6 @@ import com.example.samurairoad.R
 import com.example.samurairoad.databinding.CreateExerciseFragmentBinding
 import com.example.samurairoad.repository.WorkoutRepository
 import com.example.samurairoad.room.tables.WorkoutTableModel
-import java.time.Duration
 
 class CreateExerciseFragment : Fragment() {
 
@@ -74,7 +73,8 @@ class CreateExerciseFragment : Fragment() {
                 val sets = binding.setsInputEt.text.toString().toInt()
                 val reps = binding.repsInputEt.text.toString().toInt()
                 val weight = binding.weightInputEt.text.toString().toInt()
-                viewModel.insertExercise(requireContext(), name, description, sets, reps, weight, selectedImgBitmap)
+                val workoutName = binding.autoCompleteTextView.text.toString()
+                viewModel.insertExercise(requireContext(), name, description, sets, reps, weight, selectedImgBitmap, workoutName)
 
             }
             else {
@@ -92,7 +92,7 @@ class CreateExerciseFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getWorkouts(requireContext())
+        viewModel.getAllWorkouts(requireContext())
     }
 
     private fun getWorkoutName(): List<String>{
@@ -118,11 +118,10 @@ class CreateExerciseFragment : Fragment() {
                     val imgBitmap = WorkoutRepository.uriToBitmap(requireContext(), imgUri)
                     if (imgBitmap != null) {
                         selectedImgBitmap = imgBitmap
+                        ImgTestPick.setImageURI(imgUri)
                     }
 
                 }
-
-//                ImgTestPick.setImageURI(imgUri)
 
             }
         }

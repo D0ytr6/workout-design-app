@@ -2,6 +2,7 @@ package com.example.samurairoad.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +24,12 @@ class ParentWorkoutAdapter : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutVi
             notifyDataSetChanged()
         }
 
+    var isFullList = true
+        set(newValue) {
+            field = newValue
+            notifyDataSetChanged()
+        }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         val binding = WorkoutItemBinding.inflate(inflater, parent, false)
@@ -35,12 +42,19 @@ class ParentWorkoutAdapter : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutVi
             binding.titleTv.text = currentWorkout.title
             binding.descriptionTv.text = currentWorkout.description
 
-            // setup child recycler
+        // setup child recycler
             val childAdapter = ChildExerciseAdapter()
-            childAdapter.exercises = currentWorkout.exercises_list
-            // TODO how i get here a context???
+
+            if (isFullList){
+                childAdapter.exercises = currentWorkout.exercises_list
+                // TODO how i get here a context???
+            }
+            else{
+                childAdapter.exercises = emptyList<Exercise>()
+            }
             binding.childRecycler.layoutManager = LinearLayoutManager(binding.childRecycler.context, LinearLayoutManager.VERTICAL, false)
             binding.childRecycler.adapter = childAdapter
+
         }
 
     }
