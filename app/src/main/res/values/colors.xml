@@ -12,7 +12,12 @@
     <color name="purple">#8c54a1</color>
     <color name="gray">#ededed</color>
     <color name="light_purple">#CBC3E3</color>
-    <color name="orange">#ecdb29</color>
+    <color name="yellow">#ecdb29</color>
     <color name="light_gray">#D9D9D9</color>
     <color name="light_purple2">#EFE5E5</color>
+    <color name="darker_gray">#606570</color>
+    <color name="red">#ffcc0000</color>
+    <color name="green">#ff99cc00</color>
+
+
 </resources>

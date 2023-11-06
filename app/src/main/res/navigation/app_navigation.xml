@@ -46,8 +46,24 @@
         android:id="@+id/workoutsListFragment"
         android:name="com.example.samurairoad.ui.activities.WorkoutsListFragment"
         android:label="WorkoutsListFragment"
-        tools:layout="@layout/fragment_workouts_list"
+        tools:layout="@layout/fragment_workouts_list">
+        <action
+            android:id="@+id/action_workoutsListFragment_to_createWorkoutDialog"
+            app:destination="@id/createWorkoutDialog" >
+        </action>
+    </fragment>
 
-        />
+    <dialog
+        android:id="@+id/createWorkoutDialog"
+        android:name="com.example.samurairoad.dialogs.CreateWorkoutDialog"
+        android:label="CreateWorkoutDialog"
+        tools:layout="@layout/add_workout_dialog">
+
+        <argument
+            android:name="clickListener"
+            app:argType="com.example.samurairoad.dialogs.CreateWorkoutDialog$DialogClickListener"
+            app:nullable="false" />
+
+    </dialog>
 
 </navigation>

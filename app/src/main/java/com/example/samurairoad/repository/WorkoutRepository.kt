@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LiveData
 import com.example.samurairoad.repository.WorkoutRepository.Companion.workoutDatabase
 import com.example.samurairoad.room.WorkoutDatabase
@@ -132,6 +133,7 @@ class WorkoutRepository {
         }
 
         const val MyTag = "MyTag"
+        const val LifecycleTag = "LifeCycleTag"
 
     }
 

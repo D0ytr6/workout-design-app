@@ -26,12 +26,14 @@ class WorkoutsListViewModel : ViewModel() {
     // fragment only listening, changing only in view model
     val workouts: LiveData<List<WorkoutTableModel>> = _workouts
     val exercises: LiveData<List<ExerciseTableModel>> = _exercises
-    val workoutAdapterList: LiveData<List<Workout>> = _workoutAdapterList
+    val workoutAdapterList: LiveData<List<Workout>> get() = _workoutAdapterList
 
     // TODO remake this method, hard code
     fun getAllWorkouts(context: Context){
+        Log.d("MyTag", "get All Workouts")
         viewModelScope.launch {
             _workouts.value = WorkoutRepository.getAllWorkouts(context)
+            Log.d("MyTag", "ViewModel 1 " + _workouts.value?.size.toString())
             val workoutAdapterList = mutableListOf<Workout>()
 
             for(workout in workouts.value!!){
@@ -67,6 +69,7 @@ class WorkoutsListViewModel : ViewModel() {
     }
 
     fun insertWorkout(context: Context, title: String, description: String){
+        Log.d("MyTag", "Inset new value from view model")
         viewModelScope.launch {
             WorkoutRepository.insertWorkout(context, title, description)
             getAllWorkouts(context)

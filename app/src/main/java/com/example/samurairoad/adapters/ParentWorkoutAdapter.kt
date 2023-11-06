@@ -2,7 +2,6 @@ package com.example.samurairoad.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +17,9 @@ class ParentWorkoutAdapter : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutVi
     // workouts list for showing
     var workouts = emptyList<Workout>()
         set(newValue){
+            Log.d("MyTag", "Set new value to adapter")
             field = newValue
-            newValue.forEach {Log.d("MyTag", "Adapter $it")  }
+            Log.d("MyTag", newValue.toString())
 //             update visible list
             notifyDataSetChanged()
         }

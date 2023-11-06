@@ -2,21 +2,28 @@ package com.example.samurairoad.ui.activities
 
 import android.app.Dialog
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.samurairoad.R
 import com.example.samurairoad.adapters.Exercise
 import com.example.samurairoad.adapters.Workout
 import com.example.samurairoad.adapters.ParentWorkoutAdapter
 import com.example.samurairoad.databinding.AddWorkoutDialogBinding
 import com.example.samurairoad.databinding.FragmentWorkoutsListBinding
+import com.example.samurairoad.dialogs.CreateWorkoutDialog
+import com.example.samurairoad.repository.WorkoutRepository
 import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
 
@@ -37,12 +44,32 @@ class WorkoutsListFragment : Fragment() {
 
     private var workoutsShowList = listOf<Workout>()
 
+    private var selectedColor: Int? = null
+
+    private val listener = object : CreateWorkoutDialog.DialogClickListener{
+
+        override fun onSaveClickListener(title: String, description: String) {
+            viewModel.insertWorkout(requireContext(), title, description)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        override fun writeToParcel(p0: Parcel, p1: Int) {
+        }
+
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d(WorkoutRepository.LifecycleTag, "onCreateView")
+
         _binding = FragmentWorkoutsListBinding.inflate(inflater, container, false)
 
+        //TODO most modern delegate by viev models
         viewModel = ViewModelProvider(this).get(WorkoutsListViewModel::class.java)
 
         adapter = ParentWorkoutAdapter()
@@ -51,38 +78,17 @@ class WorkoutsListFragment : Fragment() {
 
         binding.workoutListRv.adapter = adapter
 
+        // TODO hard code dialog
         val dialog = Dialog(requireContext())
 
         viewModel.workoutAdapterList.observe(viewLifecycleOwner){
+            Log.d(WorkoutRepository.MyTag, "Fragment get data from observer")
             workoutsShowList = it
             adapter.workouts = it
         }
 
         binding.fabBtnCreateWorkout.setOnClickListener {
-            var dialogBinding = AddWorkoutDialogBinding.inflate(inflater)
-
-            dialogBinding.CancelButton.setOnClickListener {
-                dialog.dismiss()
-                Toast.makeText(requireContext(), "Cancel", Toast.LENGTH_SHORT).show()
-            }
-
-            dialogBinding.SaveButton.setOnClickListener {
-                if(!dialogBinding.nameEt.text.equals("") and !dialogBinding.descriptionEt.equals("")){
-                    viewModel.insertWorkout(requireContext(), dialogBinding.nameEt.text.toString(), dialogBinding.descriptionEt.text.toString())
-                    dialog.dismiss()
-                }
-            }
-
-            dialog.setContentView(dialogBinding.root)
-
-            dialog.window!!.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-
-            dialog.setCancelable(true)
-            dialog.show()
-
+            openCreateWorkoutDialog()
         }
 
         binding.materialSwitch.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { _, isChecked ->
@@ -96,10 +102,14 @@ class WorkoutsListFragment : Fragment() {
             }
 
         })
+
+
         return binding.root
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d(WorkoutRepository.LifecycleTag, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         viewModel.getAllWorkouts(requireContext())
         viewModel.getAllExercises(requireContext())
@@ -109,6 +119,36 @@ class WorkoutsListFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(WorkoutsListViewModel::class.java)
         // TODO: Use the ViewModel
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.d(WorkoutRepository.LifecycleTag, "onDestroy")
+    }
+
+    override fun onStart() {
+        Log.d(WorkoutRepository.LifecycleTag, "onStart")
+        super.onStart()
+    }
+
+    override fun onResume() {
+        Log.d(WorkoutRepository.LifecycleTag, "onResume")
+        super.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(WorkoutRepository.LifecycleTag, "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(WorkoutRepository.LifecycleTag, "onStop")
+    }
+
+    private fun openCreateWorkoutDialog(){
+        val bundle = bundleOf("clickListener" to listener)
+        findNavController().navigate(R.id.action_workoutsListFragment_to_createWorkoutDialog, bundle)
     }
 
 }
