@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.samurairoad.adapters.models.Exercise
 import com.example.samurairoad.databinding.ExerciseItemBinding
 
 

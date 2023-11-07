@@ -1,4 +1,4 @@
-package com.example.samurairoad.adapters
+package com.example.samurairoad.adapters.models
 
 data class Exercise (
     val title: String,

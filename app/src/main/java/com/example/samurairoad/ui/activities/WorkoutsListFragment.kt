@@ -3,7 +3,6 @@ package com.example.samurairoad.ui.activities
 import android.app.Dialog
 import android.os.Bundle
 import android.os.Parcel
-import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,16 +10,13 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.samurairoad.R
-import com.example.samurairoad.adapters.Exercise
-import com.example.samurairoad.adapters.Workout
+import com.example.samurairoad.adapters.models.Workout
 import com.example.samurairoad.adapters.ParentWorkoutAdapter
-import com.example.samurairoad.databinding.AddWorkoutDialogBinding
 import com.example.samurairoad.databinding.FragmentWorkoutsListBinding
 import com.example.samurairoad.dialogs.CreateWorkoutDialog
 import com.example.samurairoad.repository.WorkoutRepository
@@ -44,12 +40,10 @@ class WorkoutsListFragment : Fragment() {
 
     private var workoutsShowList = listOf<Workout>()
 
-    private var selectedColor: Int? = null
-
     private val listener = object : CreateWorkoutDialog.DialogClickListener{
 
-        override fun onSaveClickListener(title: String, description: String) {
-            viewModel.insertWorkout(requireContext(), title, description)
+        override fun onSaveClickListener(title: String, description: String, color: Int) {
+            viewModel.insertWorkout(requireContext(), title, description, color)
         }
 
         override fun describeContents(): Int {
@@ -69,7 +63,7 @@ class WorkoutsListFragment : Fragment() {
 
         _binding = FragmentWorkoutsListBinding.inflate(inflater, container, false)
 
-        //TODO most modern delegate by viev models
+        //TODO most modern delegate by view models
         viewModel = ViewModelProvider(this).get(WorkoutsListViewModel::class.java)
 
         adapter = ParentWorkoutAdapter()
@@ -102,7 +96,6 @@ class WorkoutsListFragment : Fragment() {
             }
 
         })
-
 
         return binding.root
     }

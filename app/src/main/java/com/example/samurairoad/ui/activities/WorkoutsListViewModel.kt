@@ -7,8 +7,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.samurairoad.adapters.Exercise
-import com.example.samurairoad.adapters.Workout
+import com.example.samurairoad.adapters.models.Exercise
+import com.example.samurairoad.adapters.models.Workout
 import com.example.samurairoad.repository.WorkoutRepository
 import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
@@ -68,10 +68,10 @@ class WorkoutsListViewModel : ViewModel() {
         WorkoutRepository.insertWorkoutData(context, workoutID, exerciseID)
     }
 
-    fun insertWorkout(context: Context, title: String, description: String){
+    fun insertWorkout(context: Context, title: String, description: String, color: Int){
         Log.d("MyTag", "Inset new value from view model")
         viewModelScope.launch {
-            WorkoutRepository.insertWorkout(context, title, description)
+            WorkoutRepository.insertWorkout(context, title, description, color)
             getAllWorkouts(context)
         }
     }
@@ -94,7 +94,6 @@ class WorkoutsListViewModel : ViewModel() {
         //all exercises which attached to this workout
         val listExID = WorkoutRepository.getExercisesIdFromWorkouts(context, workoutID)
 
-
         // current workout
         val currentWorkout = WorkoutRepository.getWorkoutByID(context, workoutID)
 
@@ -114,7 +113,7 @@ class WorkoutsListViewModel : ViewModel() {
             listExAdapter.add(Exercise(value.Title, index + 1))
         }
 
-        return Workout(currentWorkout.Title, currentWorkout.Description, listExAdapter)
+        return Workout(currentWorkout.Title, currentWorkout.Description, currentWorkout.Color, listExAdapter)
 
     }
 
@@ -122,11 +121,11 @@ class WorkoutsListViewModel : ViewModel() {
         val testlist = mutableListOf<WorkoutTableModel>()
         for(i in 1..5){
             if(i == 3){
-                val workout = WorkoutTableModel("Test$i", "Testing.. Send data, checkpoint")
+                val workout = WorkoutTableModel("Test$i", "Testing.. Send data, checkpoint", 1)
                 testlist.add(workout)
             }
             else {
-                val workout = WorkoutTableModel("Test$i", "Testing..")
+                val workout = WorkoutTableModel("Test$i", "Testing..", 5)
                 testlist.add(workout)
             }
         }

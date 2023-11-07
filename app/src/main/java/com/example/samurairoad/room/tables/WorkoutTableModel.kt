@@ -11,6 +11,9 @@ data class WorkoutTableModel(
 
     @ColumnInfo(name = "description")
     var Description: String,
+
+    @ColumnInfo(name = "color")
+    var Color: Int
 ){
 
     @PrimaryKey(autoGenerate = true)

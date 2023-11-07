@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.samurairoad.adapters.models.Exercise
+import com.example.samurairoad.adapters.models.Workout
 import com.example.samurairoad.databinding.WorkoutItemBinding
 
 class ParentWorkoutAdapter : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutViewHolder>()  {
@@ -41,7 +43,8 @@ class ParentWorkoutAdapter : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutVi
         with(holder){
             binding.titleTv.text = currentWorkout.title
             binding.descriptionTv.text = currentWorkout.description
-
+            // TODO binding.workoutCardView.setCardBackgroundColor(Color.parseColor()) fix deprecated
+            binding.workoutCardView.setCardBackgroundColor(binding.workoutCardView.context.resources.getColor(currentWorkout.color))
         // setup child recycler
             val childAdapter = ChildExerciseAdapter()
 

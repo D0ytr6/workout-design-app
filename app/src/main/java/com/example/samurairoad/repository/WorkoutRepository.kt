@@ -81,11 +81,11 @@ class WorkoutRepository {
 
         }
 
-        suspend fun insertWorkout(context: Context, title: String, description: String){
+        suspend fun insertWorkout(context: Context, title: String, description: String, color: Int){
 
             workoutDatabase = initDB(context)
 
-            val workout: WorkoutTableModel = WorkoutTableModel(title, description)
+            val workout: WorkoutTableModel = WorkoutTableModel(title, description, color)
             workoutDatabase!!.getDao().insertWorkout(workout)
 
         }

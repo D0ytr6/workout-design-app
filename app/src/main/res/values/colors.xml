@@ -19,5 +19,9 @@
     <color name="red">#ffcc0000</color>
     <color name="green">#ff99cc00</color>
 
+    <array name="palette_colors">
+
+    </array>
+
 
 </resources>

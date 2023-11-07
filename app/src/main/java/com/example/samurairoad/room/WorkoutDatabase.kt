@@ -10,7 +10,7 @@ import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutDataTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
 
-@Database(entities = [WorkoutTableModel::class, ExerciseTableModel::class, WorkoutDataTableModel::class], version = 3, exportSchema = false)
+@Database(entities = [WorkoutTableModel::class, ExerciseTableModel::class, WorkoutDataTableModel::class], version = 4, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class WorkoutDatabase : RoomDatabase() {
 
