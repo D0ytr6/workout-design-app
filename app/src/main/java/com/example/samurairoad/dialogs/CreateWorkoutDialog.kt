@@ -1,18 +1,23 @@
 package com.example.samurairoad.dialogs
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.samurairoad.R
+import com.example.samurairoad.adapters.ColorPaletteAdapter
+import com.example.samurairoad.adapters.models.PaletteCircle
 import com.example.samurairoad.databinding.AddWorkoutDialogBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class CreateWorkoutDialog: BottomSheetDialogFragment() {
+class CreateWorkoutDialog: BottomSheetDialogFragment(){
 
     private lateinit var _binding: AddWorkoutDialogBinding
     private val binding get() = _binding
@@ -28,6 +33,20 @@ class CreateWorkoutDialog: BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = AddWorkoutDialogBinding.inflate(inflater, container, false)
+
+        val adapter = ColorPaletteAdapter(object : ColorPaletteAdapter.OnColorClickListener{
+            override fun onColorClick(color: Int) {
+                selectedColor = color
+            }
+        })
+
+        val list = createPalettes(binding.root.context)
+        adapter.paletteList = list
+
+        binding.paletteRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.paletteRecycler.adapter = adapter
+
+
 //        TODO replace bundle by safe args
         val listener = arguments?.getParcelable<DialogClickListener>("clickListener")
 
@@ -45,33 +64,6 @@ class CreateWorkoutDialog: BottomSheetDialogFragment() {
         }
 
         //TODO add custom color button
-
-        binding.chooseColor.blueFl.setOnClickListener {
-            binding.chooseColor.emptyBox.setImageResource(R.drawable.color_checkbox_blue)
-            selectedColor = R.color.blue
-        }
-
-        binding.chooseColor.redFl.setOnClickListener {
-            binding.chooseColor.emptyBox.setImageResource(R.drawable.color_checkbox_red)
-            binding.chooseColor.emptyBox
-            selectedColor = R.color.red
-        }
-
-        binding.chooseColor.greenFl.setOnClickListener {
-            binding.chooseColor.emptyBox.setImageResource(R.drawable.color_checkbox_green)
-            selectedColor = R.color.green
-        }
-
-        binding.chooseColor.yellowFl.setOnClickListener {
-            binding.chooseColor.emptyBox.setImageResource(R.drawable.color_checkbox_yellow)
-            selectedColor = R.color.yellow
-        }
-
-        binding.chooseColor.purpleFl.setOnClickListener {
-            binding.chooseColor.emptyBox.setImageResource(R.drawable.color_checkbox_purple)
-            selectedColor = R.color.purple_200
-        }
-
         return binding.root
     }
 
@@ -83,6 +75,19 @@ class CreateWorkoutDialog: BottomSheetDialogFragment() {
 
         fun onSaveClickListener(title: String, description: String, color: Int)
 
+    }
+
+    private fun createPalettes(context: Context): List<PaletteCircle>{
+        var paletteList = mutableListOf<PaletteCircle>()
+        val colors = context.resources.getIntArray(R.array.palette_colors)
+
+        for ((index, color) in colors.withIndex()){
+            paletteList.add(PaletteCircle(color, false))
+        }
+
+        Log.d("Colors", paletteList.toString())
+
+        return paletteList
     }
 
 }

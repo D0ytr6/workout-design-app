@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:padding="20dp">
 
@@ -44,10 +45,19 @@
         android:fontFamily="@font/shoika_semi"
         />
 
-    <include
-        android:id="@+id/choose_color"
-        layout="@layout/choose_color_fragment" />
+<!--    <include-->
+<!--        android:id="@+id/choose_color"-->
+<!--        layout="@layout/choose_color_fragment" />-->
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
+        android:id="@+id/palette_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:orientation="horizontal"
+        tools:listitem="@layout/color_picker_item"
+        />
 
     <RelativeLayout
         android:layout_marginTop="20dp"

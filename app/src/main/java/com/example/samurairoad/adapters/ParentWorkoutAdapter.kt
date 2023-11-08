@@ -44,7 +44,8 @@ class ParentWorkoutAdapter : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutVi
             binding.titleTv.text = currentWorkout.title
             binding.descriptionTv.text = currentWorkout.description
             // TODO binding.workoutCardView.setCardBackgroundColor(Color.parseColor()) fix deprecated
-            binding.workoutCardView.setCardBackgroundColor(binding.workoutCardView.context.resources.getColor(currentWorkout.color))
+            //binding.workoutCardView.background.setTint(currentWorkout.color)
+            binding.workoutCardView.setCardBackgroundColor(currentWorkout.color)
         // setup child recycler
             val childAdapter = ChildExerciseAdapter()
 
