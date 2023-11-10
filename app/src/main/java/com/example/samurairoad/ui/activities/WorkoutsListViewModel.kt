@@ -8,25 +8,32 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.samurairoad.adapters.models.Exercise
+import com.example.samurairoad.adapters.models.FullExercise
 import com.example.samurairoad.adapters.models.Workout
 import com.example.samurairoad.repository.WorkoutRepository
 import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 //TODO null check fix
 //TODO add view model lifecycle logs
+//TODO write unit tests
+
 class WorkoutsListViewModel : ViewModel() {
 
     // shadow fields
     private val _workouts = MutableLiveData<List<WorkoutTableModel>>()
     private val _exercises = MutableLiveData<List<ExerciseTableModel>>()
     private val _workoutAdapterList = MutableLiveData<List<Workout>>()
+    private val _exercisesFullAdapterList = MutableLiveData<List<FullExercise>>()
 
     // fragment only listening, changing only in view model
     val workouts: LiveData<List<WorkoutTableModel>> = _workouts
     val exercises: LiveData<List<ExerciseTableModel>> = _exercises
     val workoutAdapterList: LiveData<List<Workout>> get() = _workoutAdapterList
+    val exercisesFullAdapterList: LiveData<List<FullExercise>> get() = _exercisesFullAdapterList
 
     // TODO remake this method, hard code
     fun getAllWorkouts(context: Context){
@@ -37,10 +44,10 @@ class WorkoutsListViewModel : ViewModel() {
             val workoutAdapterList = mutableListOf<Workout>()
 
             for(workout in workouts.value!!){
+                // Creating adapter model
                 val workoutAdapter = getWorkoutAdapter(context, workout.Id!!)
                 workoutAdapterList.add(workoutAdapter)
             }
-
             // update live data
             _workoutAdapterList.value = workoutAdapterList
 
@@ -113,8 +120,36 @@ class WorkoutsListViewModel : ViewModel() {
             listExAdapter.add(Exercise(value.Title, index + 1))
         }
 
-        return Workout(currentWorkout.Title, currentWorkout.Description, currentWorkout.Color, listExAdapter)
+        return Workout(currentWorkout.Title, currentWorkout.Description, currentWorkout.Color, listExAdapter, workoutID)
 
+    }
+
+    private suspend fun getExercisesFromWorkout(context: Context, workoutID: Long){
+
+        val listExID = WorkoutRepository.getExercisesIdFromWorkouts(context, workoutID)
+        val listEx = mutableListOf<ExerciseTableModel>()
+        val exercisesAdapterList = mutableListOf<FullExercise>()
+
+        for (exerciseID in listExID) {
+            Log.d(WorkoutRepository.MyTag, "exerciseID $exerciseID")
+            val exercise = WorkoutRepository.getExerciseByID(context, exerciseID)
+            Log.d(WorkoutRepository.MyTag, "exercise title ${exercise.Id}")
+            listEx.add(exercise)
+        }
+
+        for ((index, value) in listEx.withIndex()) {
+            Log.d(WorkoutRepository.MyTag, value.Title)
+            exercisesAdapterList.add(FullExercise(
+                value.Title, value.Description, value.SetsCount,
+                value.RepsCount, value.weightValue, value.exercisePhoto))
+        }
+        _exercisesFullAdapterList.value = exercisesAdapterList
+    }
+
+    fun loadExercises(context: Context, workoutID: Long){
+        viewModelScope.launch {
+            getExercisesFromWorkout(context, workoutID)
+        }
     }
 
     private fun imitationData(){
@@ -131,6 +166,16 @@ class WorkoutsListViewModel : ViewModel() {
         }
         _workouts.value = testlist
     }
+
+
+    fun getWorkout(context: Context, id: Long) : Deferred<WorkoutTableModel> = viewModelScope.async {
+        WorkoutRepository.getWorkoutByID(context, id)
+    }
+
+    fun getWorkoutName(context: Context, name: String) : Deferred<WorkoutTableModel> = viewModelScope.async {
+        WorkoutRepository.getWorkoutByName(context, name)
+    }
+
 
 
 //    init {

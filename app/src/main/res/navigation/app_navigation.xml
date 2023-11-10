@@ -51,6 +51,9 @@
             android:id="@+id/action_workoutsListFragment_to_createWorkoutDialog"
             app:destination="@id/createWorkoutDialog" >
         </action>
+        <action
+            android:id="@+id/action_workoutsListFragment_to_fullWorkoutFragment"
+            app:destination="@id/fullWorkoutFragment" />
     </fragment>
 
     <dialog
@@ -65,5 +68,14 @@
             app:nullable="false" />
 
     </dialog>
+    <fragment
+        android:id="@+id/fullWorkoutFragment"
+        android:name="com.example.samurairoad.ui.activities.FullWorkoutFragment"
+        android:label="FullWorkoutFragment"
+        tools:layout="@layout/fragment_full_workout">
+        <argument
+            android:name="workoutId"
+            app:argType="long" />
+    </fragment>
 
 </navigation>

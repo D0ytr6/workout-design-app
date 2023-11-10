@@ -9,18 +9,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.samurairoad.R
 import com.example.samurairoad.adapters.ColorPaletteAdapter
 import com.example.samurairoad.adapters.models.PaletteCircle
 import com.example.samurairoad.databinding.AddWorkoutDialogBinding
+import com.example.samurairoad.ui.activities.WorkoutsListViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.launch
 
 class CreateWorkoutDialog: BottomSheetDialogFragment(){
 
     private lateinit var _binding: AddWorkoutDialogBinding
     private val binding get() = _binding
+
+    private val viewModel: WorkoutsListViewModel by viewModels()
+
     private var selectedColor: Int? = null
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -57,9 +64,17 @@ class CreateWorkoutDialog: BottomSheetDialogFragment(){
 
         binding.SaveButton.setOnClickListener {
             if(!binding.nameEt.text.equals("") && !binding.descriptionEt.equals("") && selectedColor != null){
-                listener?.onSaveClickListener(binding.nameEt.text.toString(), binding.descriptionEt.text.toString(),
-                    selectedColor!!)
-                findNavController().popBackStack()
+                lifecycleScope.launch {
+                    val workout = viewModel.getWorkoutName(requireContext(), binding.nameEt.text.toString()).await()
+                    if (workout == null){
+                        listener?.onSaveClickListener(binding.nameEt.text.toString(), binding.descriptionEt.text.toString(),
+                            selectedColor!!)
+                        findNavController().popBackStack()
+                    }
+                    else{
+                        binding.nameEt.setError("Workout is already exist")
+                    }
+                }
             }
         }
 
@@ -88,6 +103,10 @@ class CreateWorkoutDialog: BottomSheetDialogFragment(){
         Log.d("Colors", paletteList.toString())
 
         return paletteList
+    }
+
+    private fun searchExistsWorkout(name: String){
+
     }
 
 }

@@ -9,7 +9,7 @@ import com.example.samurairoad.adapters.models.PaletteCircle
 import com.example.samurairoad.databinding.ColorPickerItemBinding
 import com.example.samurairoad.repository.WorkoutRepository
 
-class ColorPaletteAdapter(val listener: OnColorClickListener) : RecyclerView.Adapter<ColorPaletteAdapter.PaletteViewHolder>() {
+class ColorPaletteAdapter(private val listener: OnColorClickListener) : RecyclerView.Adapter<ColorPaletteAdapter.PaletteViewHolder>() {
 
     var paletteList = emptyList<PaletteCircle>()
         set(value) {
@@ -17,7 +17,6 @@ class ColorPaletteAdapter(val listener: OnColorClickListener) : RecyclerView.Ada
             notifyDataSetChanged()
         }
 
-    private var isColorPicked = false
     private var previousColor: Int? = null
 
     class PaletteViewHolder(

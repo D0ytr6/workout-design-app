@@ -9,7 +9,8 @@ import com.example.samurairoad.adapters.models.Exercise
 import com.example.samurairoad.adapters.models.Workout
 import com.example.samurairoad.databinding.WorkoutItemBinding
 
-class ParentWorkoutAdapter : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutViewHolder>()  {
+class ParentWorkoutAdapter(
+    private val listener: OnItemWorkoutClickListener) : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutViewHolder>()  {
 
 //    create view holder class
     class WorkoutViewHolder(
@@ -43,6 +44,10 @@ class ParentWorkoutAdapter : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutVi
         with(holder){
             binding.titleTv.text = currentWorkout.title
             binding.descriptionTv.text = currentWorkout.description
+
+            binding.root.setOnClickListener{
+                listener.onClick(workouts[position].workoutID)
+            }
             // TODO binding.workoutCardView.setCardBackgroundColor(Color.parseColor()) fix deprecated
             //binding.workoutCardView.background.setTint(currentWorkout.color)
             binding.workoutCardView.setCardBackgroundColor(currentWorkout.color)
@@ -65,5 +70,9 @@ class ParentWorkoutAdapter : RecyclerView.Adapter<ParentWorkoutAdapter.WorkoutVi
 
     override fun getItemCount(): Int {
         return workouts.size
+    }
+
+    interface OnItemWorkoutClickListener{
+        fun onClick(workoutId: Long)
     }
 }

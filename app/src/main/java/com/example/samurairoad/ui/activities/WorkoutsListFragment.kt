@@ -24,7 +24,7 @@ import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
 
 
-class WorkoutsListFragment : Fragment() {
+class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClickListener{
 
     private var _binding: FragmentWorkoutsListBinding? = null
     private lateinit var adapter: ParentWorkoutAdapter
@@ -35,11 +35,7 @@ class WorkoutsListFragment : Fragment() {
 
     private lateinit var viewModel: WorkoutsListViewModel
 
-    private var workoutList = listOf<WorkoutTableModel>()
-    private var exerciseList = listOf<ExerciseTableModel>()
-
-    private var workoutsShowList = listOf<Workout>()
-
+    // callback for dialog
     private val listener = object : CreateWorkoutDialog.DialogClickListener{
 
         override fun onSaveClickListener(title: String, description: String, color: Int) {
@@ -66,18 +62,14 @@ class WorkoutsListFragment : Fragment() {
         //TODO most modern delegate by view models
         viewModel = ViewModelProvider(this).get(WorkoutsListViewModel::class.java)
 
-        adapter = ParentWorkoutAdapter()
+        adapter = ParentWorkoutAdapter(this)
 
         binding.workoutListRv.layoutManager =  StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
         binding.workoutListRv.adapter = adapter
 
-        // TODO hard code dialog
-        val dialog = Dialog(requireContext())
-
         viewModel.workoutAdapterList.observe(viewLifecycleOwner){
             Log.d(WorkoutRepository.MyTag, "Fragment get data from observer")
-            workoutsShowList = it
             adapter.workouts = it
         }
 
@@ -105,9 +97,10 @@ class WorkoutsListFragment : Fragment() {
         Log.d(WorkoutRepository.LifecycleTag, "onViewCreated")
         super.onViewCreated(view, savedInstanceState)
         viewModel.getAllWorkouts(requireContext())
-        viewModel.getAllExercises(requireContext())
+        //viewModel.getAllExercises(requireContext())
     }
 
+    // TODO replace by delegate
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(WorkoutsListViewModel::class.java)
@@ -142,6 +135,15 @@ class WorkoutsListFragment : Fragment() {
     private fun openCreateWorkoutDialog(){
         val bundle = bundleOf("clickListener" to listener)
         findNavController().navigate(R.id.action_workoutsListFragment_to_createWorkoutDialog, bundle)
+    }
+
+    private fun openFullWorkout(id: Long){
+        val bundle = bundleOf("workoutId" to id)
+        findNavController().navigate(R.id.action_workoutsListFragment_to_fullWorkoutFragment, bundle)
+    }
+
+    override fun onClick(workoutId: Long) {
+        openFullWorkout(workoutId)
     }
 
 }

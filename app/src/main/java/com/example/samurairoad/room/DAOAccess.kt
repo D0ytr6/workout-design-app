@@ -12,6 +12,11 @@ interface DAOAccess {
     // TODO make unique workout name
     // TODO unique exercises only inside a workout4
 
+    // sync func
+    @Query("SELECT * FROM workout WHERE id LIKE :id LIMIT 1")
+    fun getWorkoutByIdSync(id: Long): WorkoutTableModel
+
+    // async func
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertWorkout(workout: WorkoutTableModel)
 

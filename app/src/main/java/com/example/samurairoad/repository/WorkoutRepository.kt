@@ -132,6 +132,13 @@ class WorkoutRepository {
             return null
         }
 
+        fun getWorkoutByIDSync(context: Context, id: Long): WorkoutTableModel{
+            workoutDatabase = initDB(context)
+            return workoutDatabase!!.getDao().getWorkoutByIdSync(id)
+        }
+
+
+
         const val MyTag = "MyTag"
         const val LifecycleTag = "LifeCycleTag"
 
