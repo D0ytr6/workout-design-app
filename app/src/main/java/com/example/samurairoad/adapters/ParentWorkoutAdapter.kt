@@ -48,6 +48,11 @@ class ParentWorkoutAdapter(
             binding.root.setOnClickListener{
                 listener.onClick(workouts[position].workoutID)
             }
+
+            binding.deleteIv.setOnClickListener{
+                listener.onDeleteClick(workouts[position].workoutID)
+            }
+
             // TODO binding.workoutCardView.setCardBackgroundColor(Color.parseColor()) fix deprecated
             //binding.workoutCardView.background.setTint(currentWorkout.color)
             binding.workoutCardView.setCardBackgroundColor(currentWorkout.color)
@@ -74,5 +79,6 @@ class ParentWorkoutAdapter(
 
     interface OnItemWorkoutClickListener{
         fun onClick(workoutId: Long)
+        fun onDeleteClick(workoutId: Long)
     }
 }

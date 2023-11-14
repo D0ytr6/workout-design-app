@@ -22,6 +22,7 @@ import com.example.samurairoad.adapters.ParentWorkoutAdapter
 import com.example.samurairoad.adapters.models.Workout
 import com.example.samurairoad.databinding.FragmentWorkoutsListBinding
 import com.example.samurairoad.dialogs.CreateWorkoutDialog
+import com.example.samurairoad.dialogs.DeleteWorkoutDialog
 import com.example.samurairoad.repository.WorkoutRepository
 
 
@@ -42,6 +43,20 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
 
         override fun onSaveClickListener(title: String, description: String, color: Int) {
             viewModel.insertWorkout(requireContext(), title, description, color)
+        }
+
+        override fun describeContents(): Int {
+            return 0
+        }
+
+        override fun writeToParcel(p0: Parcel, p1: Int) {
+        }
+
+    }
+
+    private val deleteListener = object : DeleteWorkoutDialog.OnDeleteClickListener{
+        override fun onDeleteClick(id: Long) {
+            viewModel.deleteWorkout(requireContext(), id)
         }
 
         override fun describeContents(): Int {
@@ -99,6 +114,7 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
             }
 
         })
+
 
         //TODO fix hide soft keyboard
 //        binding.root.setOnTouchListener(object: View.OnTouchListener{
@@ -198,6 +214,11 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
 
     override fun onClick(workoutId: Long) {
         openFullWorkout(workoutId)
+    }
+
+    override fun onDeleteClick(workoutId: Long) {
+        val bundle = bundleOf("deleteListener" to deleteListener, "id" to workoutId)
+        findNavController().navigate(R.id.action_workoutsListFragment_to_deleteWorkoutDialog, bundle)
     }
 
 }

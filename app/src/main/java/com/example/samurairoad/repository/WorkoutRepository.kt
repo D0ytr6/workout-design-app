@@ -113,6 +113,11 @@ class WorkoutRepository {
             }
         }
 
+        suspend fun deleteWorkout(context: Context, workoutTableModel: WorkoutTableModel){
+            workoutDatabase = initDB(context)
+            workoutDatabase!!.getDao().deleteWorkout(workoutTableModel)
+        }
+
 
         private fun logCurrentThread(){
             Log.d("MyTag", "Current Thread " + Thread.currentThread().name)

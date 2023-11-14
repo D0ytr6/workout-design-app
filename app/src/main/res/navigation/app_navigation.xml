@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_workoutsListFragment_to_fullWorkoutFragment"
             app:destination="@id/fullWorkoutFragment" />
+        <action
+            android:id="@+id/action_workoutsListFragment_to_deleteWorkoutDialog"
+            app:destination="@id/deleteWorkoutDialog" />
     </fragment>
 
     <dialog
@@ -76,6 +79,21 @@
         <argument
             android:name="workoutId"
             app:argType="long" />
+
     </fragment>
+    <dialog
+        android:id="@+id/deleteWorkoutDialog"
+        android:name="com.example.samurairoad.dialogs.DeleteWorkoutDialog"
+        android:label="DeleteWorkoutDialog" >
+
+        <argument
+            android:name="deleteListener"
+            app:argType="com.example.samurairoad.dialogs.DeleteWorkoutDialog$OnDeleteClickListener"
+            app:nullable="false"/>
+        <argument
+            android:name="id"
+            app:argType="long" />
+
+    </dialog>
 
 </navigation>

@@ -79,6 +79,8 @@ class WorkoutsListViewModel : ViewModel() {
         Log.d("MyTag", "Inset new value from view model")
         viewModelScope.launch {
             WorkoutRepository.insertWorkout(context, title, description, color)
+
+            // update adapter live data list
             getAllWorkouts(context)
         }
     }
@@ -94,6 +96,18 @@ class WorkoutsListViewModel : ViewModel() {
             WorkoutRepository.insertWorkoutData(context, selectedWorkout.Id!!, id)
 
         }
+    }
+
+    fun deleteWorkout(context: Context, workoutID: Long){
+
+        viewModelScope.launch {
+            val workout = WorkoutRepository.getWorkoutByID(context, workoutID)
+            WorkoutRepository.deleteWorkout(context, workout)
+
+            // update adapter live data list
+            getAllWorkouts(context)
+        }
+
     }
 
     private suspend fun getWorkoutAdapter(context: Context, workoutID: Long): Workout {
