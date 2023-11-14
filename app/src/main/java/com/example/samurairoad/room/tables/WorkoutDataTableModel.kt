@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
+//TODO change cascade on ex
 @Entity(tableName = "workout_data", foreignKeys = [
     ForeignKey(
         entity = WorkoutTableModel::class,

@@ -98,10 +98,29 @@ class WorkoutsListViewModel : ViewModel() {
         }
     }
 
-    fun deleteWorkout(context: Context, workoutID: Long){
+    fun deleteWorkout(context: Context, workoutID: Long, cascade: Boolean){
 
         viewModelScope.launch {
+
             val workout = WorkoutRepository.getWorkoutByID(context, workoutID)
+
+            if(cascade){
+                //all exercises which attached to this workout
+                val listExID = WorkoutRepository.getExercisesIdFromWorkouts(context, workoutID)
+                val listEx = mutableListOf<ExerciseTableModel>()
+
+                // get all exercise model from db
+                for (exerciseID in listExID) {
+                    Log.d(WorkoutRepository.MyTag, "exerciseID $exerciseID")
+                    val exercise = WorkoutRepository.getExerciseByID(context, exerciseID)
+                    Log.d(WorkoutRepository.MyTag, "exercise title ${exercise.Id}")
+                    listEx.add(exercise)
+                }
+                for (exercise in listEx){
+                    WorkoutRepository.deleteExercise(context, exercise)
+                }
+
+            }
             WorkoutRepository.deleteWorkout(context, workout)
 
             // update adapter live data list

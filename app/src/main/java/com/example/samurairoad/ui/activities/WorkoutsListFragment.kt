@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Parcel
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
@@ -55,8 +54,9 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
     }
 
     private val deleteListener = object : DeleteWorkoutDialog.OnDeleteClickListener{
-        override fun onDeleteClick(id: Long) {
-            viewModel.deleteWorkout(requireContext(), id)
+
+        override fun onDeleteClick(id: Long, cascade: Boolean) {
+            viewModel.deleteWorkout(requireContext(), id, cascade)
         }
 
         override fun describeContents(): Int {
