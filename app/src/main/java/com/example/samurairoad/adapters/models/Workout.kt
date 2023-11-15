@@ -6,4 +6,5 @@ data class Workout (
     val color: Int,
     val exercises_list: List<Exercise>,
     val workoutID: Long,
+    var expanded: Boolean,
 )

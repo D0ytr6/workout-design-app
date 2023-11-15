@@ -79,6 +79,8 @@
                 android:drawablePadding="15dp"
                 android:background="@drawable/search_background"
                 android:inputType="text"
+                android:focusableInTouchMode="true"
+                android:focusable="true"
                 android:autofillHints="Test" />
 
             <androidx.constraintlayout.widget.ConstraintLayout

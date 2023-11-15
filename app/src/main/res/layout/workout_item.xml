@@ -49,10 +49,39 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="3dp"
                 app:layout_constraintEnd_toStartOf="@id/edit_iv"
-                android:src="@drawable/ic_baseline_expand_more_24"
+                android:src="@drawable/ic_baseline_expand_less_24"
                 app:tint = "@color/white"
                 />
 
+            <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/delete_iv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="10dp"
+                android:text="My Workout"
+                android:background="@android:color/transparent"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="visible"
+                />
+
+            <EditText
+                android:id="@+id/change_title_et"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/delete_iv"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginStart="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:visibility="invisible"
+                android:background="@null"
+                android:singleLine="true"
+                android:inputType="text" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:orientation="vertical"
@@ -60,19 +89,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/delete_iv"
+                app:layout_constraintTop_toBottomOf="@id/title_tv"
                 android:padding="10dp">
-
-                <TextView
-                    android:id="@+id/title_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:text="My Workout"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/description_tv"

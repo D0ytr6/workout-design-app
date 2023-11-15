@@ -1,14 +1,19 @@
 package com.example.samurairoad.ui.activities
 
+import android.content.Context
 import android.content.Context.*
 import android.os.Bundle
 import android.os.Parcel
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.CompoundButton
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
@@ -219,6 +224,27 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
     override fun onDeleteClick(workoutId: Long) {
         val bundle = bundleOf("deleteListener" to deleteListener, "id" to workoutId)
         findNavController().navigate(R.id.action_workoutsListFragment_to_deleteWorkoutDialog, bundle)
+    }
+
+    override fun onEditClick(editText: EditText, textView: TextView) {
+
+        editText.setOnEditorActionListener{ _: TextView, actionId: Int, _: KeyEvent? ->
+            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
+                editText.visibility = View.INVISIBLE
+                textView.text = editText.text.toString()
+                textView.visibility = View.VISIBLE
+                val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(editText.windowToken, 0)
+                return@setOnEditorActionListener true
+            }
+            else {
+                Toast.makeText(requireContext(), "False", Toast.LENGTH_SHORT).show()
+                false
+            }
+        }
+
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
     }
 
 }

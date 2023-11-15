@@ -153,7 +153,7 @@ class WorkoutsListViewModel : ViewModel() {
             listExAdapter.add(Exercise(value.Title, index + 1))
         }
 
-        return Workout(currentWorkout.Title, currentWorkout.Description, currentWorkout.Color, listExAdapter, workoutID)
+        return Workout(currentWorkout.Title, currentWorkout.Description, currentWorkout.Color, listExAdapter, workoutID, true)
 
     }
 
