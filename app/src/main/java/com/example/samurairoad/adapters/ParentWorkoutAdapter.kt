@@ -70,11 +70,13 @@ class ParentWorkoutAdapter(
 
             binding.expandIv.setOnClickListener{
                 if(currentWorkout.expanded){
-                    currentWorkout.expanded = false
+//                    currentWorkout.expanded = false
+                    listener.onExpandClick(false, workouts[position].title)
                     binding.expandIv.setImageResource(R.drawable.ic_baseline_expand_more_24)
                 }
                 else{
-                    currentWorkout.expanded = true
+//                    currentWorkout.expanded = true
+                    listener.onExpandClick(true, workouts[position].title)
                     binding.expandIv.setImageResource(R.drawable.ic_baseline_expand_less_24)
                 }
                 notifyDataSetChanged()
@@ -111,5 +113,6 @@ class ParentWorkoutAdapter(
         fun onClick(workoutId: Long)
         fun onDeleteClick(workoutId: Long)
         fun onEditClick(editText: EditText, textView: TextView)
+        fun onExpandClick(isExpand: Boolean, title: String)
     }
 }

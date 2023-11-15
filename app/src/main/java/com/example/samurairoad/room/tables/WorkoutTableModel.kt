@@ -13,7 +13,10 @@ data class WorkoutTableModel(
     var Description: String,
 
     @ColumnInfo(name = "color")
-    var Color: Int
+    var Color: Int,
+
+    @ColumnInfo(name = "expand")
+    var Expand: Boolean,
 ){
 
     @PrimaryKey(autoGenerate = true)

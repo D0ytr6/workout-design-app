@@ -44,6 +44,9 @@ interface DAOAccess {
     @Query("SELECT exerciseId FROM workout_data WHERE workoutId LIKE :workout_id")
     suspend fun getExercisesIdFromWorkouts(workout_id: Long): List<Long>
 
+    @Update
+    suspend fun updateWorkout(workout: WorkoutTableModel)
+
     @Delete
     suspend fun deleteWorkout(workout: WorkoutTableModel)
 

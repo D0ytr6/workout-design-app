@@ -19,6 +19,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.samurairoad.R
@@ -28,6 +29,8 @@ import com.example.samurairoad.databinding.FragmentWorkoutsListBinding
 import com.example.samurairoad.dialogs.CreateWorkoutDialog
 import com.example.samurairoad.dialogs.DeleteWorkoutDialog
 import com.example.samurairoad.repository.WorkoutRepository
+import com.example.samurairoad.room.tables.WorkoutTableModel
+import kotlinx.coroutines.launch
 
 
 class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClickListener{
@@ -46,7 +49,7 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
     private val listener = object : CreateWorkoutDialog.DialogClickListener{
 
         override fun onSaveClickListener(title: String, description: String, color: Int) {
-            viewModel.insertWorkout(requireContext(), title, description, color)
+            viewModel.insertWorkout(requireContext(), title, description, color, expanded = true)
         }
 
         override fun describeContents(): Int {
@@ -119,18 +122,6 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
             }
 
         })
-
-
-        //TODO fix hide soft keyboard
-//        binding.root.setOnTouchListener(object: View.OnTouchListener{
-//            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-//                binding.searchBar.setQuery("", false);
-//                binding.root.requestFocus();
-//                hideKeyboard()
-//                return true
-//            }
-//
-//        })
 
         return binding.root
     }
@@ -231,8 +222,17 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
         editText.setOnEditorActionListener{ _: TextView, actionId: Int, _: KeyEvent? ->
             if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
                 editText.visibility = View.INVISIBLE
+                val title = textView.text.toString()
+
                 textView.text = editText.text.toString()
                 textView.visibility = View.VISIBLE
+
+                lifecycleScope.launch {
+                    val workout = viewModel.returnWorkoutByName(requireContext(), title).await()
+                    workout.Title = textView.text.toString()
+                    viewModel.updateWorkout(requireContext(), workout)
+                }
+
                 val imm = requireActivity().getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(editText.windowToken, 0)
                 return@setOnEditorActionListener true
@@ -245,6 +245,14 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
 
         val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    override fun onExpandClick(isExpand: Boolean, title: String) {
+        lifecycleScope.launch {
+            val workout = viewModel.returnWorkoutByName(requireContext(), title).await()
+            workout.Expand = isExpand
+            viewModel.updateWorkout(requireContext(), workout)
+        }
     }
 
 }

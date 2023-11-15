@@ -75,10 +75,10 @@ class WorkoutsListViewModel : ViewModel() {
         WorkoutRepository.insertWorkoutData(context, workoutID, exerciseID)
     }
 
-    fun insertWorkout(context: Context, title: String, description: String, color: Int){
+    fun insertWorkout(context: Context, title: String, description: String, color: Int, expanded: Boolean){
         Log.d("MyTag", "Inset new value from view model")
         viewModelScope.launch {
-            WorkoutRepository.insertWorkout(context, title, description, color)
+            WorkoutRepository.insertWorkout(context, title, description, color, expanded)
 
             // update adapter live data list
             getAllWorkouts(context)
@@ -153,7 +153,7 @@ class WorkoutsListViewModel : ViewModel() {
             listExAdapter.add(Exercise(value.Title, index + 1))
         }
 
-        return Workout(currentWorkout.Title, currentWorkout.Description, currentWorkout.Color, listExAdapter, workoutID, true)
+        return Workout(currentWorkout.Title, currentWorkout.Description, currentWorkout.Color, listExAdapter, workoutID, currentWorkout.Expand)
 
     }
 
@@ -189,23 +189,28 @@ class WorkoutsListViewModel : ViewModel() {
         val testlist = mutableListOf<WorkoutTableModel>()
         for(i in 1..5){
             if(i == 3){
-                val workout = WorkoutTableModel("Test$i", "Testing.. Send data, checkpoint", 1)
+                val workout = WorkoutTableModel("Test$i", "Testing.. Send data, checkpoint", 1, true)
                 testlist.add(workout)
             }
             else {
-                val workout = WorkoutTableModel("Test$i", "Testing..", 5)
+                val workout = WorkoutTableModel("Test$i", "Testing..", 5, false)
                 testlist.add(workout)
             }
         }
         _workouts.value = testlist
     }
 
+    suspend fun updateWorkout(context: Context, workoutTableModel: WorkoutTableModel){
+        WorkoutRepository.updateWorkout(context, workoutTableModel)
+        // update adapter live data list
+        getAllWorkouts(context)
+    }
 
     fun getWorkout(context: Context, id: Long) : Deferred<WorkoutTableModel> = viewModelScope.async {
         WorkoutRepository.getWorkoutByID(context, id)
     }
 
-    fun getWorkoutName(context: Context, name: String) : Deferred<WorkoutTableModel> = viewModelScope.async {
+    fun returnWorkoutByName(context: Context, name: String) : Deferred<WorkoutTableModel> = viewModelScope.async {
         WorkoutRepository.getWorkoutByName(context, name)
     }
 

@@ -65,7 +65,7 @@ class CreateWorkoutDialog: BottomSheetDialogFragment(){
         binding.SaveButton.setOnClickListener {
             if(!binding.nameEt.text.equals("") && !binding.descriptionEt.equals("") && selectedColor != null){
                 lifecycleScope.launch {
-                    val workout = viewModel.getWorkoutName(requireContext(), binding.nameEt.text.toString()).await()
+                    val workout = viewModel.returnWorkoutByName(requireContext(), binding.nameEt.text.toString()).await()
                     if (workout == null){
                         listener?.onSaveClickListener(binding.nameEt.text.toString(), binding.descriptionEt.text.toString(),
                             selectedColor!!)

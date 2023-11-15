@@ -31,6 +31,11 @@ class WorkoutRepository {
             return WorkoutDatabase.getWorkoutDb(context)
         }
 
+        suspend fun updateWorkout(context: Context, workoutTableModel: WorkoutTableModel){
+            workoutDatabase = initDB(context)
+            workoutDatabase!!.getDao().updateWorkout(workoutTableModel)
+        }
+
         suspend fun getAllWorkouts(context: Context) : List<WorkoutTableModel>?{
 
             workoutDatabase = initDB(context)
@@ -81,11 +86,11 @@ class WorkoutRepository {
 
         }
 
-        suspend fun insertWorkout(context: Context, title: String, description: String, color: Int){
+        suspend fun insertWorkout(context: Context, title: String, description: String, color: Int, expanded: Boolean){
 
             workoutDatabase = initDB(context)
 
-            val workout: WorkoutTableModel = WorkoutTableModel(title, description, color)
+            val workout: WorkoutTableModel = WorkoutTableModel(title, description, color, expanded)
             workoutDatabase!!.getDao().insertWorkout(workout)
 
         }
