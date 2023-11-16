@@ -38,16 +38,62 @@
 
     <fragment
         android:id="@+id/createWorkoutFragment"
-        android:name="com.example.samurairoad.ui.activities.CreateWorkoutFragment"
+        android:name="com.example.samurairoad.ui.activities.CreateExerciseFragment"
         android:label="CreateWorkoutFragment"
-        tools:layout="@layout/create_workout_fragment"
+        tools:layout="@layout/create_exercise_fragment"
         />
     <fragment
         android:id="@+id/workoutsListFragment"
         android:name="com.example.samurairoad.ui.activities.WorkoutsListFragment"
         android:label="WorkoutsListFragment"
-        tools:layout="@layout/fragment_workouts_list"
+        tools:layout="@layout/fragment_workouts_list">
+        <action
+            android:id="@+id/action_workoutsListFragment_to_createWorkoutDialog"
+            app:destination="@id/createWorkoutDialog" >
+        </action>
+        <action
+            android:id="@+id/action_workoutsListFragment_to_fullWorkoutFragment"
+            app:destination="@id/fullWorkoutFragment" />
+        <action
+            android:id="@+id/action_workoutsListFragment_to_deleteWorkoutDialog"
+            app:destination="@id/deleteWorkoutDialog" />
+    </fragment>
 
-        />
+    <dialog
+        android:id="@+id/createWorkoutDialog"
+        android:name="com.example.samurairoad.dialogs.CreateWorkoutDialog"
+        android:label="CreateWorkoutDialog"
+        tools:layout="@layout/add_workout_dialog">
+
+        <argument
+            android:name="clickListener"
+            app:argType="com.example.samurairoad.dialogs.CreateWorkoutDialog$DialogClickListener"
+            app:nullable="false" />
+
+    </dialog>
+    <fragment
+        android:id="@+id/fullWorkoutFragment"
+        android:name="com.example.samurairoad.ui.activities.FullWorkoutFragment"
+        android:label="FullWorkoutFragment"
+        tools:layout="@layout/fragment_full_workout">
+        <argument
+            android:name="workoutId"
+            app:argType="long" />
+
+    </fragment>
+    <dialog
+        android:id="@+id/deleteWorkoutDialog"
+        android:name="com.example.samurairoad.dialogs.DeleteWorkoutDialog"
+        android:label="DeleteWorkoutDialog" >
+
+        <argument
+            android:name="deleteListener"
+            app:argType="com.example.samurairoad.dialogs.DeleteWorkoutDialog$OnDeleteClickListener"
+            app:nullable="false"/>
+        <argument
+            android:name="id"
+            app:argType="long" />
+
+    </dialog>
 
 </navigation>

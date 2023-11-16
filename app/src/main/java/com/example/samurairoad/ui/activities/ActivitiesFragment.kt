@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.samurairoad.R
-import com.example.samurairoad.databinding.CreateWorkoutFragmentBinding
 import com.example.samurairoad.databinding.FragmentActivitiesBinding
 
 class ActivitiesFragment : Fragment() {

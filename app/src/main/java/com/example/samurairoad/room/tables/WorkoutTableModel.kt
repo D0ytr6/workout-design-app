@@ -11,9 +11,15 @@ data class WorkoutTableModel(
 
     @ColumnInfo(name = "description")
     var Description: String,
+
+    @ColumnInfo(name = "color")
+    var Color: Int,
+
+    @ColumnInfo(name = "expand")
+    var Expand: Boolean,
 ){
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var Id: Int? = null
+    var Id: Long? = null
 }

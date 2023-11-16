@@ -12,5 +12,55 @@
     <color name="purple">#8c54a1</color>
     <color name="gray">#ededed</color>
     <color name="light_purple">#CBC3E3</color>
-    <color name="orange">#ecdb29</color>
+    <color name="yellow">#ecdb29</color>
+    <color name="light_gray">#D9D9D9</color>
+    <color name="light_purple2">#EFE5E5</color>
+    <color name="darker_gray">#606570</color>
+    <color name="red">#ffcc0000</color>
+    <color name="green">#ff99cc00</color>
+    
+    <color name="turquoise">#1ABC9C</color>
+    <color name="green_sea">#16A085</color>
+    <color name="sunflower">#F1C40F</color>
+    <color name="orange">#F39C12</color>
+    <color name="emerland">#2ECC71</color>
+    <color name="nephritis">#27AE60</color>
+    <color name="carrot">#E67E22</color>
+    <color name="pumpkin">#D35400</color>
+    <color name="peterriver">#3498DB</color>
+    <color name="belizehole">#2980B9</color>
+    <color name="alizarin">#E74C3C</color>
+    <color name="pomegranate">#C0392B</color>
+    <color name="amethyst">#9B59B6</color>
+    <color name="wisteria">#8E44AD</color>
+    <color name="clouds">#ECF0F1</color>
+    <color name="silver">#BDC3C7</color>
+    <color name="wetasphalt">#34495E</color>
+    <color name="midnightblue">#2C3E50</color>
+    <color name="concrete">#95A5A6</color>
+    <color name="asbestos">#7F8C8D</color>
+
+
+    <array name="palette_colors">
+        <item>@color/turquoise</item>
+        <item>@color/green_sea</item>
+        <item>@color/sunflower</item>
+        <item>@color/orange</item>
+        <item>@color/emerland</item>
+        <item>@color/nephritis</item>
+        <item>@color/carrot</item>
+        <item>@color/pumpkin</item>
+        <item>@color/peterriver</item>
+        <item>@color/belizehole</item>
+        <item>@color/alizarin</item>
+        <item>@color/pomegranate</item>
+        <item>@color/amethyst</item>
+        <item>@color/clouds</item>
+        <item>@color/silver</item>
+        <item>@color/wetasphalt</item>
+        <item>@color/midnightblue</item>
+        <item>@color/asbestos</item>
+    </array>
+
+
 </resources>
