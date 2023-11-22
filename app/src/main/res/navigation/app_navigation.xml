@@ -96,4 +96,16 @@
 
     </dialog>
 
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.samurairoad.ui.auth.LoginFragment"
+        tools:layout="@layout/fragment_login"
+        android:label="LoginFragment" />
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.samurairoad.ui.auth.RegisterFragment"
+        tools:layout="@layout/fragment_register"
+        android:label="RegisterFragment" />
+
 </navigation>
