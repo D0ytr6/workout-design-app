@@ -13,6 +13,9 @@ import com.example.samurairoad.room.WorkoutDatabase
 import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutDataTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
+import com.example.samurairoad.ui.auth.FastApiUser
+import com.example.samurairoad.ui.auth.RegisterUserModel
+import com.example.samurairoad.ui.auth.WorkoutApi
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.async
@@ -23,6 +26,9 @@ import java.io.IOException
 
 class WorkoutRepository {
 
+//    TODO fix dependencies, a lot of boiler plate code in func signature
+//    First - context
+//
     companion object{
 
         var workoutDatabase: WorkoutDatabase? = null
@@ -152,6 +158,14 @@ class WorkoutRepository {
             return workoutDatabase!!.getDao().getWorkoutByIdSync(id)
         }
 
+        //TODO remove test
+        suspend fun getUsersTest(api: WorkoutApi): List<FastApiUser>{
+            return api.getUsers(0, 100)
+        }
+
+        suspend fun createUser(api: WorkoutApi, userModel: RegisterUserModel){
+            api.registerUser(userModel)
+        }
 
 
         const val MyTag = "MyTag"
