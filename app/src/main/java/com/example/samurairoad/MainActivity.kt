@@ -5,6 +5,7 @@ import android.view.View
 import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -12,12 +13,15 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.samurairoad.databinding.ActivityMainBinding
 import com.example.samurairoad.room.WorkoutDatabase
 import com.example.samurairoad.room.tables.WorkoutTableModel
+import com.example.samurairoad.ui.auth.TokenViewModel
 import com.example.samurairoad.ui.auth.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: UserViewModel by viewModels()
+    private val tokenViewModel: TokenViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,17 +31,18 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
-        viewModel.isAuth.observe(this) { isAuth ->
-            if (!isAuth) {
-                navController.navigate(R.id.loginFragment)
-            }
-        }
+//        tokenViewModel.tokenLiveData.observe(this) {
+//            if (it == null){
+//                navController.navigate(R.id.loginFragment)
+//            }
+//        }
 
         val navView: BottomNavigationView = binding.bottomNavigation
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.parent?.id == R.id.loginFragment) {
+            if (destination.id == R.id.loginFragment) {
                 navView.visibility = View.GONE
+//                TODO will remove on whole app
                 supportActionBar?.hide()
 
             } else {

@@ -5,24 +5,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.example.samurairoad.R
 import com.example.samurairoad.databinding.FragmentLoginBinding
+import com.example.samurairoad.ui.auth.models.Auth
+import com.example.samurairoad.utils.ApiResponse
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
-    private val viewModel: UserViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
+    private val tokenViewModel: TokenViewModel by activityViewModels()
 
-    // retrofit api
-    private var apiInterface: WorkoutApiService? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,18 +32,29 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 //        initRetrofit()
 
-        viewModel.token.observe(viewLifecycleOwner, Observer {
-            findNavController().popBackStack()
-            viewModel.isAuth.value = true
-        })
+//        viewModel.token.observe(viewLifecycleOwner, Observer {
+//            findNavController().popBackStack()
+//            viewModel.isAuth.value = true
+//        })
+
+//        binding.btnLogIn.setOnClickListener{
+//            if (binding.emailEt.text.toString() != "" && binding.etPassword.text.toString() != ""){
+//                viewModel.createUser(apiInterface!!, RegisterUserModel("kminchelle", "0lelplR"))
+////                viewModel.getAllUsers(apiInterface!!)
+////                findNavController().popBackStack()
+////                viewModel.isAuth.value = true
+//            }
+//        }
 
         binding.btnLogIn.setOnClickListener{
-            if (binding.emailEt.text.toString() != "" && binding.etPassword.text.toString() != ""){
-                viewModel.createUser(apiInterface!!, RegisterUserModel("kminchelle", "0lelplR"))
-//                viewModel.getAllUsers(apiInterface!!)
-//                findNavController().popBackStack()
-//                viewModel.isAuth.value = true
-            }
+            authViewModel.login(
+                Auth("test12", "test12"),
+                object: CoroutinesErrorHandler {
+                    override fun onError(message: String) {
+                        binding.topTv.text = "Error! $message"
+                    }
+                }
+            )
         }
 
         return binding.root
@@ -51,16 +62,22 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        tokenViewModel.tokenLiveData.observe(viewLifecycleOwner) { token ->
+            if (token != null)
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        }
+//
+        authViewModel.loginResponse.observe(viewLifecycleOwner) {
+            when(it) {
+                is ApiResponse.Failure -> binding.topTv.text = it.errorMessage
+                ApiResponse.Loading -> binding.topTv.text = "Loading"
+                is ApiResponse.Success -> {
+                    tokenViewModel.saveToken(it.data.token)
+                }
+            }
+        }
+
     }
 
-//    //TODO remove init
-//    private fun initRetrofit(){
-//        if(apiInterface == null){
-//            val retrofit = Retrofit.Builder()
-//                .baseUrl("https://dummyjson.com")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build()
-//            apiInterface = retrofit.create(WorkoutApi::class.java)
-//        }
-//    }
 }

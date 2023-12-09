@@ -2,7 +2,10 @@ package com.example.samurairoad.repository
 
 import com.example.samurairoad.ui.auth.WorkoutApiService
 import com.example.samurairoad.ui.auth.models.Auth
+import com.example.samurairoad.ui.auth.models.LoginResponse
+import com.example.samurairoad.utils.ApiResponse
 import com.example.samurairoad.utils.apiRequestFlow
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
@@ -10,6 +13,13 @@ class AuthRepository @Inject constructor(
 ) {
 
     fun login(auth: Auth) = apiRequestFlow {
-        authWorkoutApi.loginUser(auth)
+        authWorkoutApi.loginUser(auth.username, auth.password)
     }
+
+//    fun login2(auth: Auth): Flow<ApiResponse<LoginResponse>>{
+//        val flow = apiRequestFlow{
+//            authWorkoutApi.loginUser(auth)
+//        }
+//        return flow
+//    }
 }
