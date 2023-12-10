@@ -32,7 +32,10 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
 
 //        tokenViewModel.tokenLiveData.observe(this) {
-//            if (it == null){
+//            if (it != null){
+//                navController.navigate(R.id.homeFragment)
+//            }
+//            else{
 //                navController.navigate(R.id.loginFragment)
 //            }
 //        }

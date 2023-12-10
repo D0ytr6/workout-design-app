@@ -17,6 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
+//    TODO add logout button
+
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
@@ -46,6 +48,13 @@ class LoginFragment : Fragment() {
 //            }
 //        }
 
+//        TODO hide load token by splash screen
+
+        tokenViewModel.tokenLiveData.observe(viewLifecycleOwner) { token ->
+            if (token != null)
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+        }
+
         binding.btnLogIn.setOnClickListener{
             authViewModel.login(
                 Auth("test12", "test12"),
@@ -62,11 +71,6 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        tokenViewModel.tokenLiveData.observe(viewLifecycleOwner) { token ->
-            if (token != null)
-                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-        }
 //
         authViewModel.loginResponse.observe(viewLifecycleOwner) {
             when(it) {
