@@ -48,12 +48,11 @@ class LoginFragment : Fragment() {
 //            }
 //        }
 
-//        TODO hide load token by splash screen
-
-        tokenViewModel.tokenLiveData.observe(viewLifecycleOwner) { token ->
-            if (token != null)
-                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-        }
+////        TODO hide load token by splash screen
+//        tokenViewModel.tokenLiveData.observe(viewLifecycleOwner) { token ->
+//            if (token != null)
+//                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+//        }
 
         binding.btnLogIn.setOnClickListener{
             authViewModel.login(
