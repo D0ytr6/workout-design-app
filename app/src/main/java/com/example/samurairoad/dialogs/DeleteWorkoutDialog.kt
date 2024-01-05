@@ -49,6 +49,7 @@ class DeleteWorkoutDialog: DialogFragment(){
     ): View? {
 
         currentId = arguments?.getLong("id")
+//        TODO fix deprecated
         val listener = arguments?.getParcelable<OnDeleteClickListener>("deleteListener")
 
         _binding = DeleteDialogBinding.inflate(inflater, container, false)

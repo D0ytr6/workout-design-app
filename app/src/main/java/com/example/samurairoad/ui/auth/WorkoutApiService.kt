@@ -24,4 +24,9 @@ interface WorkoutApiService {
         @Field("password") password: String
     ): Response<LoginResponse>
 
+    @GET("auth/refresh")
+    suspend fun refreshToken(
+        @Header("Authorization") token: String,
+    ): Response<LoginResponse>
+
 }

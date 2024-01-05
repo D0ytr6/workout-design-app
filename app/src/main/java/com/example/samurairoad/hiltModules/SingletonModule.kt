@@ -5,6 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.samurairoad.ui.auth.WorkoutApiService
+import com.example.samurairoad.utils.AuthAuthenticator
+import com.example.samurairoad.utils.AuthInterceptor
 import com.example.samurairoad.utils.TokenManager
 import dagger.Module
 import dagger.Provides
@@ -20,9 +22,27 @@ import javax.inject.Singleton
 // create datastore, singleton obj
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "data_store")
 
+//                TODO Add Okhttp client with auth and interceptors to API build
+
 @Module
 @InstallIn(SingletonComponent::class)
 class SingletonModule {
+
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(
+        authInterceptor: AuthInterceptor,
+        authAuthenticator: AuthAuthenticator,
+    ): OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        return OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
+            .addInterceptor(loggingInterceptor)
+            .authenticator(authAuthenticator)
+            .build()
+    }
 
     @Singleton
     @Provides
@@ -31,9 +51,19 @@ class SingletonModule {
 
     @Singleton
     @Provides
+    fun provideAuthInterceptor(tokenManager: TokenManager): AuthInterceptor =
+        AuthInterceptor(tokenManager)
+
+    @Singleton
+    @Provides
+    fun provideAuthAuthenticator(tokenManager: TokenManager): AuthAuthenticator =
+        AuthAuthenticator(tokenManager)
+
+    @Singleton
+    @Provides
     fun provideRetrofitBuilder(): Retrofit.Builder =
         Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8000")
+            .baseUrl("http://10.0.2.2:8000") // local url while debug
             .addConverterFactory(GsonConverterFactory.create())
 
     @Singleton

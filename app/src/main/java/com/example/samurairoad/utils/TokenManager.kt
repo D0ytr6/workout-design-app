@@ -16,7 +16,7 @@ class TokenManager(private val context: Context) {
 //      create flow
     fun getToken(): Flow<String?> {
         return context.dataStore.data.map { preferences ->
-            preferences[TOKEN_KEY]
+            preferences[TOKEN_KEY] // emit token data
         }
     }
 
