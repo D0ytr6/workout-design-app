@@ -11,7 +11,7 @@ import com.example.samurairoad.room.tables.WorkoutDataTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
 import com.example.samurairoad.ui.auth.FastApiUser
 import com.example.samurairoad.ui.auth.RegisterUserModel
-import com.example.samurairoad.ui.auth.WorkoutApiService
+import com.example.samurairoad.service.mainApi.WorkoutApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -153,13 +153,13 @@ class WorkoutRepository {
         }
 
         //TODO remove test
-        suspend fun getUsersTest(api: WorkoutApiService): List<FastApiUser>{
-            return api.getUsers(0, 100)
-        }
-
-        suspend fun createUser(api: WorkoutApiService, userModel: RegisterUserModel): FastApiUser{
-            return api.registerUser(userModel)
-        }
+//        suspend fun getUsersTest(api: WorkoutApiService): List<FastApiUser>{
+//            return api.getUsers(0, 100)
+//        }
+//
+//        suspend fun createUser(api: WorkoutApiService, userModel: RegisterUserModel): FastApiUser{
+//            return api.registerUser(userModel)
+//        }
 
 
         const val MyTag = "MyTag"

@@ -23,4 +23,19 @@ class AuthViewModel @Inject constructor(
     ) {
         authRepository.login(auth) // return flow
     }
+
+    fun login2(auth: Auth, coroutinesErrorHandler: CoroutinesErrorHandler){
+        baseRequest(_loginResponse, coroutinesErrorHandler) { authRepository.login(auth) }
+    }
+
+    suspend fun getAccessTokenByRefresh(token: String): String? {
+        val response = authRepository.getAccessToken(token)
+        if (!response.isSuccessful){
+            return null
+        }
+        else{
+            return response.body()?.accessToken
+        }
+    }
+
 }

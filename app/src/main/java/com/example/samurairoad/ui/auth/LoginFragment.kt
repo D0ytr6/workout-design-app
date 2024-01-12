@@ -74,13 +74,12 @@ class LoginFragment : Fragment() {
         authViewModel.loginResponse.observe(viewLifecycleOwner) {
             when(it) {
                 is ApiResponse.Failure -> binding.topTv.text = it.errorMessage
-                ApiResponse.Loading -> binding.topTv.text = "Loading"
+                is ApiResponse.Loading -> binding.topTv.text = "Loading"
                 is ApiResponse.Success -> {
-                    tokenViewModel.saveToken(it.data.token)
+                    tokenViewModel.saveToken(it.data.refreshToken)
                 }
             }
         }
-
     }
 
 }

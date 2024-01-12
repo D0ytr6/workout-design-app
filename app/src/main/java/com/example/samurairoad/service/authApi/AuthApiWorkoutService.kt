@@ -1,21 +1,16 @@
-package com.example.samurairoad.ui.auth
+package com.example.samurairoad.service.authApi
 
-import com.example.samurairoad.ui.auth.models.Auth
+import com.example.samurairoad.ui.auth.FastApiUser
+import com.example.samurairoad.ui.auth.RegisterUserModel
 import com.example.samurairoad.ui.auth.models.LoginResponse
+import com.example.samurairoad.utils.RefreshResponce
 import retrofit2.Response
 import retrofit2.http.*
 
-interface WorkoutApiService {
+interface AuthApiWorkoutService {
 
-    @GET("/users")
-    suspend fun getUsers(@Query("skip") skip: Int, @Query("limit") limit: Int): List<FastApiUser>
-
-//    TODO register user, register page, login after
     @POST("/auth/login")
     suspend fun registerUser(@Body userModel: RegisterUserModel): FastApiUser
-
-//    @POST("/login/token")
-//    suspend fun loginUser(@Body auth: Auth): Response<LoginResponse>
 
     @FormUrlEncoded
     @POST("/login/token")
@@ -24,9 +19,9 @@ interface WorkoutApiService {
         @Field("password") password: String
     ): Response<LoginResponse>
 
-    @GET("auth/refresh")
+    @POST("/login/token/refresh")
     suspend fun refreshToken(
         @Header("Authorization") token: String,
-    ): Response<LoginResponse>
+    ): Response<RefreshResponce>
 
 }

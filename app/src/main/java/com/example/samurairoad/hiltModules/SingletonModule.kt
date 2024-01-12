@@ -4,9 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.example.samurairoad.ui.auth.WorkoutApiService
-import com.example.samurairoad.utils.AuthAuthenticator
-import com.example.samurairoad.utils.AuthInterceptor
+import com.example.samurairoad.service.authApi.AuthApiWorkoutService
 import com.example.samurairoad.utils.TokenManager
 import dagger.Module
 import dagger.Provides
@@ -28,36 +26,36 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "da
 @InstallIn(SingletonComponent::class)
 class SingletonModule {
 
-    @Singleton
-    @Provides
-    fun provideOkHttpClient(
-        authInterceptor: AuthInterceptor,
-        authAuthenticator: AuthAuthenticator,
-    ): OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
-        return OkHttpClient.Builder()
-            .addInterceptor(authInterceptor)
-            .addInterceptor(loggingInterceptor)
-            .authenticator(authAuthenticator)
-            .build()
-    }
+//    @Singleton
+//    @Provides
+//    fun provideOkHttpClient(
+//        authInterceptor: AuthInterceptor,
+//        authAuthenticator: AuthAuthenticator,
+//    ): OkHttpClient {
+//        val loggingInterceptor = HttpLoggingInterceptor()
+//        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+//
+//        return OkHttpClient.Builder()
+//            .addInterceptor(authInterceptor) // add access token to headers
+//            .addInterceptor(loggingInterceptor)
+//            .authenticator(authAuthenticator) // refresh access token
+//            .build()
+//    }
 
     @Singleton
     @Provides
     fun provideTokenManager(@ApplicationContext context: Context): TokenManager =
         TokenManager(context)
 
-    @Singleton
-    @Provides
-    fun provideAuthInterceptor(tokenManager: TokenManager): AuthInterceptor =
-        AuthInterceptor(tokenManager)
-
-    @Singleton
-    @Provides
-    fun provideAuthAuthenticator(tokenManager: TokenManager): AuthAuthenticator =
-        AuthAuthenticator(tokenManager)
+//    @Singleton
+//    @Provides
+//    fun provideAuthInterceptor(tokenManager: TokenManager): AuthInterceptor =
+//        AuthInterceptor(tokenManager)
+//
+//    @Singleton
+//    @Provides
+//    fun provideAuthAuthenticator(tokenManager: TokenManager): AuthAuthenticator =
+//        AuthAuthenticator(tokenManager)
 
     @Singleton
     @Provides
@@ -68,9 +66,11 @@ class SingletonModule {
 
     @Singleton
     @Provides
-    fun provideAuthAPIService(retrofit: Retrofit.Builder): WorkoutApiService =
+    fun provideAuthAPIService(retrofit: Retrofit.Builder): AuthApiWorkoutService =
         retrofit
             .build()
-            .create(WorkoutApiService::class.java)
+            .create(AuthApiWorkoutService::class.java)
+
+
 
 }

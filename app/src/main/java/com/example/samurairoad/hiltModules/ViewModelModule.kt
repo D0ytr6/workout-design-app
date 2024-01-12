@@ -1,7 +1,7 @@
 package com.example.samurairoad.hiltModules
 
 import com.example.samurairoad.repository.AuthRepository
-import com.example.samurairoad.ui.auth.WorkoutApiService
+import com.example.samurairoad.service.authApi.AuthApiWorkoutService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,9 +9,9 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-class HiltModule {
+class ViewModelModule {
 
     @Provides
-    fun provideAuthRepository(workoutApiService: WorkoutApiService) = AuthRepository(workoutApiService)
+    fun provideAuthRepository(authApiService: AuthApiWorkoutService) = AuthRepository(authApiService)
 
 }

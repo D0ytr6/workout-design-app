@@ -14,7 +14,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 
 import com.example.samurairoad.databinding.FragmentHomeBinding
-import com.example.samurairoad.ui.auth.UserViewModel
 
 class HomeFragment : Fragment() {
 
@@ -24,7 +23,6 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val userViewModel: UserViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

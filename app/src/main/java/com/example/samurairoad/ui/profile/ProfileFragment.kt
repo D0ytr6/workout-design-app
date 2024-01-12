@@ -26,6 +26,7 @@ class ProfileFragment : Fragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
+//        TODO how logout happened blyat
         binding.logoutBtn.setOnClickListener{
             tokenViewModel.deleteToken()
         }

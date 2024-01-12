@@ -1,6 +1,7 @@
 package com.example.samurairoad.utils
 
 import android.content.Context
+import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.example.samurairoad.hiltModules.dataStore
@@ -11,11 +12,13 @@ import kotlinx.coroutines.flow.map
 class TokenManager(private val context: Context) {
     companion object {
         private val TOKEN_KEY = stringPreferencesKey("jwt_token")
+        private val REFRESH_KEY = stringPreferencesKey("refresh_token")
     }
 
 //      create flow
     fun getToken(): Flow<String?> {
         return context.dataStore.data.map { preferences ->
+            // acts like map but with preferences key
             preferences[TOKEN_KEY] // emit token data
         }
     }
@@ -31,5 +34,24 @@ class TokenManager(private val context: Context) {
             preferences.remove(TOKEN_KEY)
         }
     }
+
+    fun getRefreshToken(): Flow<String?>{
+        return context.dataStore.data.map { preferences ->
+            preferences[REFRESH_KEY]
+        }
+    }
+
+    suspend fun saveRefreshToken(token: String) {
+        context.dataStore.edit { preferences ->
+            preferences[REFRESH_KEY] = token
+        }
+    }
+
+    suspend fun deleteRefreshToken() {
+        context.dataStore.edit { preferences ->
+            preferences.remove(REFRESH_KEY)
+        }
+    }
+
 }
 

@@ -1,6 +1,7 @@
 package com.example.samurairoad
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.samurairoad.databinding.ActivityMainBinding
+import com.example.samurairoad.ui.auth.AuthViewModel
 import com.example.samurairoad.ui.auth.TokenViewModel
 import com.example.samurairoad.ui.auth.models.SplashScreenStatus
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,13 +23,16 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val tokenViewModel: TokenViewModel by viewModels()
     private lateinit var navController: NavController
     private var isLoadDestination: Boolean = false
+
+    private val tokenViewModel: TokenViewModel by viewModels()
+    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // not blocking call
         installSplashScreen().apply {
             setKeepVisibleCondition{
                 tokenViewModel.splashScreenStatus.value == SplashScreenStatus.LOADING || !isLoadDestination
@@ -42,8 +47,9 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main) as NavHostFragment
 
         navController = navHostFragment.navController
+        Log.d("Splash", "nav controller init")
 
-
+        // TODO check refresh token for expiration time if expired - update
         lifecycleScope.launch {
             tokenViewModel.splashScreenStatus.collect{ status ->
                 if (status == SplashScreenStatus.LOGIN_SCREEN){
@@ -51,6 +57,13 @@ class MainActivity : AppCompatActivity() {
                 }
                 else if (status == SplashScreenStatus.HOME_SCREEN){
                     setStartGraphDestination(R.navigation.app_navigation, R.id.homeFragment)
+                    val refreshToken = tokenViewModel.refreshTokenLiveData.value
+                    if (refreshToken != null) {
+                        val accessToken = authViewModel.getAccessTokenByRefresh(refreshToken)
+                        if (accessToken != null) {
+                            Log.d("Access", accessToken)
+                        }
+                    }
                 }
 
                 isLoadDestination = true

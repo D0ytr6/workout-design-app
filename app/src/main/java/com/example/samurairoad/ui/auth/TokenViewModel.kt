@@ -21,7 +21,8 @@ class TokenViewModel @Inject constructor(
 ): ViewModel(){
 
 //    TODO add shadow field
-    val tokenLiveData = MutableLiveData<String?>()
+    val accessTokenLiveData = MutableLiveData<String?>()
+    val refreshTokenLiveData = MutableLiveData<String?>()
 
     val splashScreenStatus = MutableStateFlow(SplashScreenStatus.LOADING)
 
@@ -29,9 +30,9 @@ class TokenViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
 //            collect token value from flow, update livedata
             tokenManager.getToken().collect {
-//                TODO ?? withContext
                 withContext(Dispatchers.Main) {
-                    tokenLiveData.value = it
+                    refreshTokenLiveData.value = it
+                    // token exist
                     if(it != null){
                         splashScreenStatus.value = SplashScreenStatus.HOME_SCREEN
                     }
@@ -45,6 +46,7 @@ class TokenViewModel @Inject constructor(
     }
 
     fun saveToken(token: String){
+        Log.d("Token", token)
         viewModelScope.launch(Dispatchers.IO) {
             tokenManager.saveToken(token)
         }
