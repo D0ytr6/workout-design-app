@@ -28,14 +28,4 @@ class AuthViewModel @Inject constructor(
         baseRequest(_loginResponse, coroutinesErrorHandler) { authRepository.login(auth) }
     }
 
-    suspend fun getAccessTokenByRefresh(token: String): String? {
-        val response = authRepository.getAccessToken(token)
-        if (!response.isSuccessful){
-            return null
-        }
-        else{
-            return response.body()?.accessToken
-        }
-    }
-
 }

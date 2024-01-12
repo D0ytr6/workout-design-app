@@ -5,14 +5,13 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.samurairoad.service.authApi.AuthApiWorkoutService
-import com.example.samurairoad.utils.TokenManager
+import com.example.samurairoad.ui.auth.AccessTokenSession
+import com.example.samurairoad.utils.RefreshTokenManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -44,8 +43,12 @@ class SingletonModule {
 
     @Singleton
     @Provides
-    fun provideTokenManager(@ApplicationContext context: Context): TokenManager =
-        TokenManager(context)
+    fun provideTokenManager(@ApplicationContext context: Context): RefreshTokenManager =
+        RefreshTokenManager(context)
+
+    @Singleton
+    @Provides
+    fun provideAccessTokenSession(): AccessTokenSession = AccessTokenSession()
 
 //    @Singleton
 //    @Provides

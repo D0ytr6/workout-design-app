@@ -4,8 +4,9 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.samurairoad.repository.AuthRepository
 import com.example.samurairoad.ui.auth.models.SplashScreenStatus
-import com.example.samurairoad.utils.TokenManager
+import com.example.samurairoad.utils.RefreshTokenManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +18,9 @@ import javax.inject.Inject
 // TODO remove Livedata
 @HiltViewModel
 class TokenViewModel @Inject constructor(
-    private val tokenManager: TokenManager
+    private val refreshTokenManager: RefreshTokenManager,
+    private val authRepository: AuthRepository,
+    private val accessTokenSession: AccessTokenSession,
 ): ViewModel(){
 
 //    TODO add shadow field
@@ -29,12 +32,16 @@ class TokenViewModel @Inject constructor(
     init {
         viewModelScope.launch(Dispatchers.IO) {
 //            collect token value from flow, update livedata
-            tokenManager.getToken().collect {
+            refreshTokenManager.getToken().collect {token ->
                 withContext(Dispatchers.Main) {
-                    refreshTokenLiveData.value = it
+                    refreshTokenLiveData.value = token
                     // token exist
-                    if(it != null){
-                        splashScreenStatus.value = SplashScreenStatus.HOME_SCREEN
+                    if(token != null){
+                        val accessToken = getAccessTokenByRefresh(token)
+                        if (accessToken != null){
+                            accessTokenSession.setAccessToken(accessToken)
+                            splashScreenStatus.value = SplashScreenStatus.HOME_SCREEN
+                        }
                     }
                     else{
                         Log.d("STATE", "Change to SplashScreenStatus.LOGIN_SCREEN")
@@ -48,13 +55,24 @@ class TokenViewModel @Inject constructor(
     fun saveToken(token: String){
         Log.d("Token", token)
         viewModelScope.launch(Dispatchers.IO) {
-            tokenManager.saveToken(token)
+            refreshTokenManager.saveToken(token)
         }
     }
 
     fun deleteToken(){
         viewModelScope.launch(Dispatchers.IO) {
-            tokenManager.deleteToken()
+            refreshTokenManager.deleteToken()
+        }
+    }
+
+//    TODO fix clean code
+    suspend fun getAccessTokenByRefresh(token: String): String? {
+        val response = authRepository.getAccessToken(token)
+        if (!response.isSuccessful){
+            return null
+        }
+        else{
+            return response.body()?.accessToken
         }
     }
 
@@ -62,7 +80,7 @@ class TokenViewModel @Inject constructor(
 
         var token: String? = null
 
-        tokenManager.getToken().collect{
+        refreshTokenManager.getToken().collect{
             token = it
         }
 

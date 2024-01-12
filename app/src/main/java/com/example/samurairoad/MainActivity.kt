@@ -57,13 +57,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 else if (status == SplashScreenStatus.HOME_SCREEN){
                     setStartGraphDestination(R.navigation.app_navigation, R.id.homeFragment)
-                    val refreshToken = tokenViewModel.refreshTokenLiveData.value
-                    if (refreshToken != null) {
-                        val accessToken = authViewModel.getAccessTokenByRefresh(refreshToken)
-                        if (accessToken != null) {
-                            Log.d("Access", accessToken)
-                        }
-                    }
                 }
 
                 isLoadDestination = true
