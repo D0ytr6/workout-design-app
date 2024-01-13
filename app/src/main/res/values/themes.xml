@@ -14,6 +14,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/midnightblue</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_transparent</item>
+<!--        return to main theme-->
+        <item name="postSplashScreenTheme">@style/Theme.SamuraiRoad</item>
+    </style>
+
     <style name = "MyTheme" parent="Theme.AppCompat.NoActionBar">
 
     </style>

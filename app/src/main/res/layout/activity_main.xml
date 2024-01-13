@@ -26,7 +26,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:name="androidx.navigation.fragment.NavHostFragment"
-        app:navGraph="@navigation/app_navigation"
         app:defaultNavHost="true">
 
     </fragment>

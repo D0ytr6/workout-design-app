@@ -1,28 +1,28 @@
 package com.example.samurairoad.repository
 
-import android.content.ClipDescription
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.util.Log
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
-import com.example.samurairoad.repository.WorkoutRepository.Companion.workoutDatabase
 import com.example.samurairoad.room.WorkoutDatabase
 import com.example.samurairoad.room.tables.ExerciseTableModel
 import com.example.samurairoad.room.tables.WorkoutDataTableModel
 import com.example.samurairoad.room.tables.WorkoutTableModel
+import com.example.samurairoad.ui.auth.FastApiUser
+import com.example.samurairoad.ui.auth.RegisterUserModel
+import com.example.samurairoad.service.mainApi.WorkoutApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.io.FileDescriptor
 import java.io.IOException
 
 class WorkoutRepository {
 
+//    TODO fix dependencies, a lot of boiler plate code in func signature
+//    First - context
+//
     companion object{
 
         var workoutDatabase: WorkoutDatabase? = null
@@ -152,6 +152,14 @@ class WorkoutRepository {
             return workoutDatabase!!.getDao().getWorkoutByIdSync(id)
         }
 
+        //TODO remove test
+//        suspend fun getUsersTest(api: WorkoutApiService): List<FastApiUser>{
+//            return api.getUsers(0, 100)
+//        }
+//
+//        suspend fun createUser(api: WorkoutApiService, userModel: RegisterUserModel): FastApiUser{
+//            return api.registerUser(userModel)
+//        }
 
 
         const val MyTag = "MyTag"
