@@ -6,12 +6,16 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.samurairoad.service.authApi.AuthApiWorkoutService
 import com.example.samurairoad.ui.auth.AccessTokenSession
+import com.example.samurairoad.utils.AuthAuthenticator
+import com.example.samurairoad.utils.AuthInterceptor
 import com.example.samurairoad.utils.RefreshTokenManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -25,21 +29,21 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "da
 @InstallIn(SingletonComponent::class)
 class SingletonModule {
 
-//    @Singleton
-//    @Provides
-//    fun provideOkHttpClient(
-//        authInterceptor: AuthInterceptor,
-//        authAuthenticator: AuthAuthenticator,
-//    ): OkHttpClient {
-//        val loggingInterceptor = HttpLoggingInterceptor()
-//        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-//
-//        return OkHttpClient.Builder()
-//            .addInterceptor(authInterceptor) // add access token to headers
-//            .addInterceptor(loggingInterceptor)
-//            .authenticator(authAuthenticator) // refresh access token
-//            .build()
-//    }
+    @Singleton
+    @Provides
+    fun provideOkHttpClient(
+        authInterceptor: AuthInterceptor,
+        authAuthenticator: AuthAuthenticator,
+    ): OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        return OkHttpClient.Builder()
+            .addInterceptor(authInterceptor) // add access token to headers
+            .addInterceptor(loggingInterceptor)
+            .authenticator(authAuthenticator) // refresh access token
+            .build()
+    }
 
     @Singleton
     @Provides
@@ -50,15 +54,15 @@ class SingletonModule {
     @Provides
     fun provideAccessTokenSession(): AccessTokenSession = AccessTokenSession()
 
-//    @Singleton
-//    @Provides
-//    fun provideAuthInterceptor(tokenManager: TokenManager): AuthInterceptor =
-//        AuthInterceptor(tokenManager)
-//
-//    @Singleton
-//    @Provides
-//    fun provideAuthAuthenticator(tokenManager: TokenManager): AuthAuthenticator =
-//        AuthAuthenticator(tokenManager)
+    @Singleton
+    @Provides
+    fun provideAuthInterceptor(tokenManager: RefreshTokenManager, accessTokenSession: AccessTokenSession): AuthInterceptor =
+        AuthInterceptor(tokenManager, accessTokenSession)
+
+    @Singleton
+    @Provides
+    fun provideAuthAuthenticator(tokenManager: RefreshTokenManager, accessTokenSession: AccessTokenSession): AuthAuthenticator =
+        AuthAuthenticator(tokenManager, accessTokenSession)
 
     @Singleton
     @Provides
