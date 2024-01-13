@@ -24,7 +24,6 @@ class TokenViewModel @Inject constructor(
 ): ViewModel(){
 
 //    TODO add shadow field
-    val accessTokenLiveData = MutableLiveData<String?>()
     val refreshTokenLiveData = MutableLiveData<String?>()
 
     val splashScreenStatus = MutableStateFlow(SplashScreenStatus.LOADING)
@@ -36,7 +35,7 @@ class TokenViewModel @Inject constructor(
                 withContext(Dispatchers.Main) {
                     refreshTokenLiveData.value = token
                     // token exist
-                    if(token != null){
+                    if(token != null && !isRefreshTokenExpired()){
                         val accessToken = getAccessTokenByRefresh(token)
                         if (accessToken != null){
                             accessTokenSession.setAccessToken(accessToken)
@@ -52,39 +51,46 @@ class TokenViewModel @Inject constructor(
         }
     }
 
-    fun saveToken(token: String){
+    fun saveRefreshToken(token: String){
         Log.d("Token", token)
         viewModelScope.launch(Dispatchers.IO) {
             refreshTokenManager.saveToken(token)
+//            TODO make constant
+            setExpirationRefreshToken(60)
         }
     }
 
-    fun deleteToken(){
+    fun deleteRefreshToken(){
         viewModelScope.launch(Dispatchers.IO) {
             refreshTokenManager.deleteToken()
+            refreshTokenManager.deleteExpirationTime()
         }
     }
 
-//    TODO fix clean code
-    suspend fun getAccessTokenByRefresh(token: String): String? {
+    private suspend fun getAccessTokenByRefresh(token: String): String? {
         val response = authRepository.getAccessToken(token)
-        if (!response.isSuccessful){
+        if (!response.isSuccessful || response.body() == null){
             return null
         }
-        else{
-            return response.body()?.accessToken
-        }
+        return response.body()?.accessToken
     }
 
-    suspend fun loadToken(): String?{
+    private suspend fun setExpirationRefreshToken(live_days: Long){
+        val expSec = live_days * 24 * 60 * 60
+        refreshTokenManager.setExpirationTime(expSec)
+    }
 
-        var token: String? = null
+    private suspend fun isRefreshTokenExpired(): Boolean {
+        val currentTimeMillis = System.currentTimeMillis()
+        var expTime = refreshTokenManager.getExpirationTime()
+        if (expTime != null){
+            expTime = System.currentTimeMillis() + (expTime * 1000)
+            if (currentTimeMillis >= expTime){
+                return true
+            }
 
-        refreshTokenManager.getToken().collect{
-            token = it
         }
-
-        return token
+        return false
     }
 
 }

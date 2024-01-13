@@ -6,10 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.example.samurairoad.R
-import com.example.samurairoad.databinding.FragmentLoginBinding
 import com.example.samurairoad.databinding.FragmentProfileBinding
 import com.example.samurairoad.ui.auth.TokenViewModel
 
@@ -28,7 +24,7 @@ class ProfileFragment : Fragment() {
 
 //        TODO how logout happened blyat
         binding.logoutBtn.setOnClickListener{
-            tokenViewModel.deleteToken()
+            tokenViewModel.deleteRefreshToken()
         }
 
         return binding.root

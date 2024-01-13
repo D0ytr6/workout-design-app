@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     private var isLoadDestination: Boolean = false
 
     private val tokenViewModel: TokenViewModel by viewModels()
-    private val authViewModel: AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

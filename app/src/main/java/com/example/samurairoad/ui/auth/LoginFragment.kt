@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import com.example.samurairoad.R
 import com.example.samurairoad.databinding.FragmentLoginBinding
 import com.example.samurairoad.ui.auth.models.Auth
 import com.example.samurairoad.utils.ApiResponse
@@ -24,7 +22,6 @@ class LoginFragment : Fragment() {
 
     private val authViewModel: AuthViewModel by viewModels()
     private val tokenViewModel: TokenViewModel by activityViewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -76,7 +73,8 @@ class LoginFragment : Fragment() {
                 is ApiResponse.Failure -> binding.topTv.text = it.errorMessage
                 is ApiResponse.Loading -> binding.topTv.text = "Loading"
                 is ApiResponse.Success -> {
-                    tokenViewModel.saveToken(it.data.refreshToken)
+                    binding.topTv.text = "Success"
+                    tokenViewModel.saveRefreshToken(it.data.refreshToken)
                 }
             }
         }
