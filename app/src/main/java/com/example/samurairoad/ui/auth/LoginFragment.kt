@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import com.example.samurairoad.databinding.FragmentLogin2Binding
 import com.example.samurairoad.databinding.FragmentLoginBinding
 import com.example.samurairoad.ui.auth.models.Auth
 import com.example.samurairoad.utils.ApiResponse
@@ -17,7 +18,7 @@ class LoginFragment : Fragment() {
 
 //    TODO add logout button
 
-    private var _binding: FragmentLoginBinding? = null
+    private var _binding: FragmentLogin2Binding? = null
     private val binding get() = _binding!!
 
     private val authViewModel: AuthViewModel by viewModels()
@@ -28,7 +29,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        _binding = FragmentLogin2Binding.inflate(inflater, container, false)
 //        initRetrofit()
 
 //        viewModel.token.observe(viewLifecycleOwner, Observer {
@@ -51,6 +52,7 @@ class LoginFragment : Fragment() {
 //                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
 //        }
 
+//        TODO add validation
         binding.btnLogIn.setOnClickListener{
             authViewModel.login(
                 Auth("test12", "test12"),
@@ -60,6 +62,12 @@ class LoginFragment : Fragment() {
                     }
                 }
             )
+        }
+
+        binding.btnOffline.setOnClickListener{
+            tokenViewModel.setOfflineMode()
+//            TODO make constant
+            tokenViewModel.saveRefreshToken("TestTokenOffline")
         }
 
         return binding.root
@@ -78,6 +86,12 @@ class LoginFragment : Fragment() {
                 }
             }
         }
+
+//        tokenViewModel.isOffline.observe(viewLifecycleOwner){
+//            if (it == true){
+//                tokenViewModel.saveRefreshToken("TestTokenOffline")
+//            }
+//        }
     }
 
 }

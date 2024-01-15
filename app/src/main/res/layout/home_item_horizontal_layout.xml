@@ -15,6 +15,7 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:text="Knee tendinose rehab"
+        android:textColor="@color/black"
         android:textSize="20sp"
         android:textStyle="bold"
         />

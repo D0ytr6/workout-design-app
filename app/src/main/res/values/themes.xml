@@ -18,10 +18,11 @@
         <item name="windowSplashScreenBackground">@color/midnightblue</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/logo_transparent</item>
 <!--        return to main theme-->
-        <item name="postSplashScreenTheme">@style/Theme.SamuraiRoad</item>
+        <item name="postSplashScreenTheme">@style/MyTheme</item>
     </style>
 
     <style name = "MyTheme" parent="Theme.AppCompat.NoActionBar">
 
     </style>
+
 </resources>

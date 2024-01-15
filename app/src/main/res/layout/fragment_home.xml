@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/light_purple"
+    android:background="@color/light_dark"
     tools:context=".ui.home.HomeFragment">
 
     <ScrollView
@@ -31,7 +31,7 @@
                     android:text="Time to workout, User"
                     android:fontFamily="@font/shoika_semi"
                     android:textSize="18sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     />
 
@@ -58,12 +58,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="25sp"
                 android:layout_marginLeft="20dp"
-                android:lines="2"
+
                 android:fontFamily="@font/shoika_semi"
-                android:text="Find your categories\nIf you want )"
+                android:text="Find your categories"
                 />
 
             <EditText
@@ -75,6 +75,7 @@
                 android:layout_marginTop="20dp"
                 android:padding="15dp"
                 android:hint="Search"
+                android:textColorHint="@color/black"
                 android:drawableStart="@drawable/ic_baseline_search_24"
                 android:drawablePadding="15dp"
                 android:background="@drawable/search_background"
@@ -89,7 +90,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/today_activity_background">
+                android:background="@drawable/gradient_background_box">
 
                 <TextView
                     android:id="@+id/tv_today_activity"
@@ -110,6 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Walking - 2 km"
+                    android:textColor="@color/black"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@id/tv_today_activity"
@@ -131,21 +133,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="80dp"
+                        android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:background="@drawable/menu_item_background"
-                        android:src="@drawable/img_1" />
+                        android:src="@drawable/stability" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -153,7 +156,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="15dp"
                         android:text="Stability"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
@@ -168,10 +171,10 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="80dp"
+                        android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:background="@drawable/menu_item_background"
-                        android:src="@drawable/kettlebell" />
+                        android:src="@drawable/dumbbell_gym_svgrepo_com" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -180,7 +183,7 @@
                         android:text="Power"
                         android:layout_marginTop="15dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -194,10 +197,10 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="80dp"
+                        android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:background="@drawable/menu_item_background"
-                        android:src="@drawable/bulletprof" />
+                        android:src="@drawable/intensive_ex" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -206,7 +209,7 @@
                         android:text="Bulletprof"
                         android:layout_marginTop="15dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -215,15 +218,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
                     <ImageView
-                        android:layout_width="80dp"
+                        android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:background="@drawable/menu_item_background"
-                        android:src="@drawable/cardio" />
+                        android:src="@drawable/jumping_rope_skipping_rope_svgrepo_com" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -232,7 +234,7 @@
                         android:text="Cardio"
                         android:layout_marginTop="15dp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="15sp" />
 
                 </LinearLayout>
@@ -248,7 +250,7 @@
                 android:layout_marginTop="20dp"
                 android:text="Your Categories"
                 android:fontFamily="@font/shoika_semi"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 

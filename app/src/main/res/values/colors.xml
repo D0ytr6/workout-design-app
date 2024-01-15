@@ -39,6 +39,8 @@
     <color name="midnightblue">#2C3E50</color>
     <color name="concrete">#95A5A6</color>
     <color name="asbestos">#7F8C8D</color>
+    <color name="logo_purple">#5a37c3</color>
+    <color name="light_dark">#181818</color>
 
 
     <array name="palette_colors">

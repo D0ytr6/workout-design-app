@@ -34,14 +34,19 @@ class TokenViewModel @Inject constructor(
             refreshTokenManager.getToken().collect {token ->
                 withContext(Dispatchers.Main) {
                     refreshTokenLiveData.value = token
+                    val offlineMode = refreshTokenManager.getOfflineState()
                     // token exist
-                    if(token != null && !isRefreshTokenExpired()){
+                    if(token != null && !isRefreshTokenExpired() && (offlineMode == false || offlineMode == null)){
                         val accessToken = getAccessTokenByRefresh(token)
                         if (accessToken != null){
                             accessTokenSession.setAccessToken(accessToken)
                             splashScreenStatus.value = SplashScreenStatus.HOME_SCREEN
                         }
                     }
+                    else if (token != null && offlineMode == true){
+                        splashScreenStatus.value = SplashScreenStatus.HOME_SCREEN
+                    }
+
                     else{
                         Log.d("STATE", "Change to SplashScreenStatus.LOGIN_SCREEN")
                         splashScreenStatus.value = SplashScreenStatus.LOGIN_SCREEN
@@ -64,6 +69,10 @@ class TokenViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             refreshTokenManager.deleteToken()
             refreshTokenManager.deleteExpirationTime()
+            val offlineMode = refreshTokenManager.getOfflineState()
+            if(offlineMode == true){
+                refreshTokenManager.removeOfflineState()
+            }
         }
     }
 
@@ -91,6 +100,12 @@ class TokenViewModel @Inject constructor(
 
         }
         return false
+    }
+
+    fun setOfflineMode(){
+        viewModelScope.launch {
+            refreshTokenManager.setOfflineState()
+        }
     }
 
 }
