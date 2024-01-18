@@ -18,13 +18,13 @@
         app:layout_constraintBottom_toTopOf="@id/search_bar"
         android:text="All workouts"
         android:fontFamily="@font/shoika_semi"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp" />
 
-    <com.google.android.material.switchmaterial.SwitchMaterial
+    <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/material_switch"
         android:layout_marginEnd="20dp"
         android:layout_width="wrap_content"
@@ -45,7 +45,6 @@
         app:layout_constraintBottom_toTopOf="@id/workout_list_rv"
         android:iconifiedByDefault="false"
         android:drawablePadding="15dp"
-        android:background="@drawable/search_background"
         android:clickable="true"
         android:inputType="text"
         android:focusable="true"

@@ -3,21 +3,22 @@
     <item
         android:id="@+id/homeFragment"
         android:title="@string/home_title"
-        android:icon="@drawable/ic_baseline_home_24" />
+        android:icon="@drawable/home_md3"
+        />
 
     <item
-        android:id="@+id/activitiesFragment"
-        android:title="@string/activities_title"
-        android:icon="@drawable/ic_baseline_sports_gymnastics_24" />
+        android:id="@+id/workoutsListFragment"
+        android:title="@string/workouts_title"
+        android:icon="@drawable/exercise_md3" />
 
     <item
         android:id="@+id/settingsFragment"
-        android:title="@string/profile_title"
-        android:icon="@drawable/ic_baseline_people_alt_24" />
+        android:title="@string/public_workouts_title"
+        android:icon="@drawable/public_md3" />
 
     <item
         android:id="@+id/profileFragment"
-        android:title="@string/settings_title"
-        android:icon="@drawable/ic_baseline_settings_24" />
+        android:title="@string/profile_title"
+        android:icon="@drawable/person_md3" />
 
 </menu>

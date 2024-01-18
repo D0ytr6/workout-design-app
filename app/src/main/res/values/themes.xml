@@ -21,8 +21,9 @@
         <item name="postSplashScreenTheme">@style/MyTheme</item>
     </style>
 
-    <style name = "MyTheme" parent="Theme.AppCompat.NoActionBar">
-
+    <style name = "MyTheme" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="android:navigationBarColor">@color/wetasphalt</item>
+        <item name="android:statusBarColor">@color/wetasphalt</item>
     </style>
 
 </resources>

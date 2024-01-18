@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/light_dark"
     tools:context=".ui.home.HomeFragment">
 
     <ScrollView
@@ -156,6 +155,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="15dp"
                         android:text="Stability"
+                        android:fontFamily="@font/robotoblack"
                         android:textColor="@color/white"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -238,8 +238,8 @@
                         android:textSize="15sp" />
 
                 </LinearLayout>
-                
-                
+
+
             </LinearLayout>
 
 
