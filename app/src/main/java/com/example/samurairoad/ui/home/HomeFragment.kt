@@ -22,6 +22,7 @@ import com.example.samurairoad.adapters.ViewPagerAdapter
 import com.example.samurairoad.adapters.extensions.ViewPagerExtensions.addCarouselEffect
 import com.example.samurairoad.adapters.models.HomeCarouselModel
 import com.example.samurairoad.databinding.FragmentHomeBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
 
@@ -53,6 +54,7 @@ class HomeFragment : Fragment() {
         val adapter = ViewPagerAdapter(viewPagerFraments, requireActivity()) // TODO add fragment manager
         binding.viewPager.adapter = adapter
         binding.viewPager.addCarouselEffect(enableZoom = true)
+        initDotsIndicator()
 
 
         return binding.root
@@ -74,6 +76,11 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun initDotsIndicator(){
+        TabLayoutMediator(binding.tabLayout, binding.viewPager){ tab, position ->
+        }.attach()
     }
 
 }
