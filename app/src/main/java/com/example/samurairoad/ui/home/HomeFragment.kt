@@ -16,6 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.example.samurairoad.R
 import com.example.samurairoad.adapters.HomeCarouselAdapter
+import com.example.samurairoad.adapters.MainViewPagerFragment1
+import com.example.samurairoad.adapters.MainViewPagerFragment2
+import com.example.samurairoad.adapters.ViewPagerAdapter
+import com.example.samurairoad.adapters.extensions.ViewPagerExtensions.addCarouselEffect
 import com.example.samurairoad.adapters.models.HomeCarouselModel
 import com.example.samurairoad.databinding.FragmentHomeBinding
 
@@ -45,35 +49,10 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        ItemView.add(binding.firstItem)
-        ItemView.add(binding.secondItem)
-        ItemView.add(binding.thirdItem)
-
-        val adapter = HomeCarouselAdapter()
-
-        adapter.carousel_items = carouselItemList
-
-        binding.carouselRV.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false )
-
-        binding.carouselRV.addOnScrollListener(object: OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE){
-                    val position: Int = getCurrentItem()
-                    when(position){
-                        0 -> setCheckedCarouselItem(binding.firstItem)
-                        1 -> setCheckedCarouselItem(binding.secondItem)
-                        2 -> setCheckedCarouselItem(binding.thirdItem)
-                    }
-
-                }
-            }
-        })
-
-
-        binding.carouselRV.adapter = adapter
-
-        binding.firstItem.background = getDrawable(requireContext(), R.drawable.home_carousel_item_checked)
+        val viewPagerFraments = listOf<Fragment>(MainViewPagerFragment1(), MainViewPagerFragment2())
+        val adapter = ViewPagerAdapter(viewPagerFraments, requireActivity()) // TODO add fragment manager
+        binding.viewPager.adapter = adapter
+        binding.viewPager.addCarouselEffect(enableZoom = true)
 
 
         return binding.root
@@ -92,22 +71,9 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun getCurrentItem(): Int {
-        // cast to LinearLayoutManager
-        return (binding.carouselRV.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    private fun setCheckedCarouselItem(view: View){
-        view.background = getDrawable(requireContext(), R.drawable.home_carousel_item_checked)
-        for (v in ItemView){
-            if (v != view){
-                v.background = getDrawable(requireContext(), R.drawable.home_carousel_item_unchecked)
-            }
-        }
-    }
 }
