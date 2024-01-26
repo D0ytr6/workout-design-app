@@ -4,21 +4,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/light_dark"
-    tools:context=".ui.home.HomeFragment"
 
-    >
+    tools:context=".ui.home.HomeFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
-        <LinearLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipChildren="false"
             android:clipToPadding="false"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@drawable/radial_gradient_background">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -35,9 +35,9 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:text="Hello, Anonymous"
-                    android:fontFamily="@font/shoika_semi"
+                    android:fontFamily="@font/sourcesans3regular"
                     android:textSize="14sp"
-                    android:textColor="@color/white"
+                    android:textColor="#EBEBF5"
                     android:textStyle="bold"
                     />
 
@@ -57,29 +57,12 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:textSize="25sp"
+                android:textSize="26sp"
                 android:layout_marginLeft="20dp"
-                android:fontFamily="@font/shoika_semi"
-                android:text="Find your categories"
+                android:fontFamily="@font/sourcesans3bold"
+                android:text="let's Get Exercise"
                 />
 
-            <EditText
-                android:id="@+id/search_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="20dp"
-                android:padding="15dp"
-                android:hint="Search"
-                android:textColorHint="@color/black"
-                android:drawableStart="@drawable/ic_baseline_search_24"
-                android:drawablePadding="15dp"
-                android:background="@drawable/search_background"
-                android:inputType="text"
-                android:focusableInTouchMode="true"
-                android:focusable="true"
-                android:autofillHints="Test" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
@@ -97,12 +80,12 @@
                 android:layout_gravity="center"
                 app:tabGravity="center"
                 app:tabBackground="@drawable/tab_dot_selector"
-                android:background="?android:attr/colorBackground"
+                android:background="#00FFFFFF"
                 app:tabIndicatorHeight="0dp"
                 />
 
 
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -110,7 +93,7 @@
                 android:layout_marginEnd="20dp"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -122,7 +105,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:background="@drawable/menu_item_background"
-                        app:tint="@color/white"
                         android:src="@drawable/stability" />
 
                     <TextView
@@ -136,9 +118,9 @@
                         android:textSize="15sp"
                         android:textStyle="bold" />
 
-                </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -151,8 +133,7 @@
                         android:layout_height="80dp"
                         android:padding="5dp"
                         android:background="@drawable/menu_item_background"
-                        android:src="@drawable/dumbbell_gym_svgrepo_com"
-                        app:tint="@color/white" />
+                        android:src="@drawable/ic_barbell" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -164,9 +145,9 @@
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
-                </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -179,22 +160,21 @@
                         android:padding="5dp"
                         android:layout_height="80dp"
                         android:background="@drawable/menu_item_background"
-                        app:tint="@color/white"
-                        android:src="@drawable/intensive_ex" />
+                        android:src="@drawable/ic_swim" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Bulletprof"
+                        android:text="Swim"
                         android:layout_marginTop="15dp"
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
-                </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <LinearLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -206,8 +186,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="80dp"
                         android:background="@drawable/menu_item_background"
-                        app:tint="@color/white"
-                        android:src="@drawable/jumping_rope_skipping_rope_svgrepo_com" />
+                        android:src="@drawable/ic_ropeskipping" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -219,10 +198,10 @@
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
-                </LinearLayout>
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-            </LinearLayout>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <TextView
@@ -231,9 +210,9 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:text="Favourites workouts"
-                android:fontFamily="@font/shoika_semi"
+                android:fontFamily="@font/sourcesans3bold"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="26sp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -245,8 +224,29 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 />
 
-        </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todays"
+                android:fontFamily="@font/sourcesans3bold"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                />
 
-    </ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/today_training_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                tools:listitem="@layout/today_training_item"
+                />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

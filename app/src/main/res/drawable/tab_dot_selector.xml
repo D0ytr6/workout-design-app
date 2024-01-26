@@ -4,7 +4,5 @@
     <item android:drawable="@drawable/home_carousel_item_checked"
         android:state_selected="true"/>
 
-
-
     <item android:drawable="@drawable/home_carousel_item_unchecked"/>
 </selector>

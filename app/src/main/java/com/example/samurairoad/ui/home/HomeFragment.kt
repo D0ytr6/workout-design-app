@@ -15,11 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.example.samurairoad.R
-import com.example.samurairoad.adapters.HomeCarouselAdapter
-import com.example.samurairoad.adapters.MainViewPagerFragment1
-import com.example.samurairoad.adapters.MainViewPagerFragment2
-import com.example.samurairoad.adapters.ViewPagerAdapter
+import com.example.samurairoad.adapters.*
 import com.example.samurairoad.adapters.extensions.ViewPagerExtensions.addCarouselEffect
+import com.example.samurairoad.adapters.models.HistoryItem
 import com.example.samurairoad.adapters.models.HomeCarouselModel
 import com.example.samurairoad.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
@@ -56,21 +54,24 @@ class HomeFragment : Fragment() {
         binding.viewPager.addCarouselEffect(enableZoom = true)
         initDotsIndicator()
 
+        val historyAdapter = HomeWorkoutHistoryAdapter()
+        val listHistoryWorkouts = mutableListOf<HistoryItem>()
+        listHistoryWorkouts.add(HistoryItem("Morning jorking", "From the Central Park to the top of mountain", R.drawable.ic_run, "06:30", "07:00"))
+        listHistoryWorkouts.add(HistoryItem("Morning jorking", "From the Central Park to the top of mountain", R.drawable.ic_run, "06:30", "07:00"))
+
+        historyAdapter.workouts = listHistoryWorkouts
+
+        binding.todayTrainingRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.todayTrainingRv.isNestedScrollingEnabled = false;
+
+        binding.todayTrainingRv.adapter = historyAdapter
+
 
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.searchBar.setOnEditorActionListener { _: TextView, actionId: Int, _: KeyEvent? ->
-            if (actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NEXT) {
-                Toast.makeText(requireContext(), "Welcome to GFG", Toast.LENGTH_SHORT).show()
-                return@setOnEditorActionListener true
-            } else {
-                Toast.makeText(requireContext(), "False", Toast.LENGTH_SHORT).show()
-                false
-            }
-        }
     }
 
     override fun onDestroyView() {
