@@ -26,13 +26,13 @@ class ActivitiesFragment : Fragment() {
     ): View? {
         _binding = FragmentActivitiesBinding.inflate(inflater, container, false)
 
-        binding.createWorkoutButton.setOnClickListener(View.OnClickListener {
-            openCreateWorkout()
-        })
-
-        binding.allWorkoutsBtn.setOnClickListener{
-            openAllWorkout()
-        }
+//        binding.createWorkoutButton.setOnClickListener(View.OnClickListener {
+//            openCreateWorkout()4
+//        })
+//
+//        binding.allWorkoutsBtn.setOnClickListener{
+//            openAllWorkout()
+//        }
 
         return binding.root
     }
@@ -41,13 +41,13 @@ class ActivitiesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         // TODO: Use the ViewModel
     }
-
-    private fun openCreateWorkout(){
-        findNavController().navigate(R.id.action_activitiesFragment_to_createWorkoutFragment)
-    }
-
-    private fun openAllWorkout(){
-        findNavController().navigate(R.id.action_activitiesFragment_to_workoutsListFragment)
-    }
+//
+//    private fun openCreateWorkout(){
+//        findNavController().navigate(R.id.action_activitiesFragment_to_createWorkoutFragment)
+//    }
+//
+//    private fun openAllWorkout(){
+//        findNavController().navigate(R.id.action_activitiesFragment_to_workoutsListFragment)
+//    }
 
 }

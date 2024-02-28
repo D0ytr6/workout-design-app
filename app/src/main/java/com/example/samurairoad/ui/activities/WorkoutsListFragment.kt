@@ -94,7 +94,7 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
         binding.workoutListRv.adapter = adapter
 
         binding.searchBar.isActivated = true;
-        binding.searchBar.queryHint = "Type your keyword here";
+//        binding.searchBar.queryHint = "Type your keyword here";
         binding.searchBar.onActionViewExpanded();
         binding.searchBar.isIconified = false;
         binding.searchBar.clearFocus();
@@ -122,6 +122,7 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
             }
 
         })
+
 
         return binding.root
     }
@@ -201,6 +202,10 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
     private fun openCreateWorkoutDialog(){
         val bundle = bundleOf("clickListener" to listener)
         findNavController().navigate(R.id.action_workoutsListFragment_to_createWorkoutDialog, bundle)
+    }
+
+    private fun openCreateExerciseFragment(){
+        findNavController().navigate(R.id.action_workoutsListFragment_to_createWorkoutFragment)
     }
 
     private fun openFullWorkout(id: Long){

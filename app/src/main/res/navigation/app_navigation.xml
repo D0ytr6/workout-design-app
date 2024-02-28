@@ -14,19 +14,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/activitiesFragment"
-        android:name="com.example.samurairoad.ui.activities.ActivitiesFragment"
-        android:label="fragment_activities"
-        tools:layout="@layout/fragment_activities" >
-        <action
-            android:id="@+id/action_activitiesFragment_to_createWorkoutFragment"
-            app:destination="@id/createWorkoutFragment" />
-        <action
-            android:id="@+id/action_activitiesFragment_to_workoutsListFragment"
-            app:destination="@id/workoutsListFragment" />
-    </fragment>
-
-    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.samurairoad.ui.settings.SettingsFragment"
         android:label="fragment_settings"
@@ -44,6 +31,7 @@
         android:label="CreateWorkoutFragment"
         tools:layout="@layout/create_exercise_fragment"
         />
+
     <fragment
         android:id="@+id/workoutsListFragment"
         android:name="com.example.samurairoad.ui.activities.WorkoutsListFragment"
@@ -59,6 +47,9 @@
         <action
             android:id="@+id/action_workoutsListFragment_to_deleteWorkoutDialog"
             app:destination="@id/deleteWorkoutDialog" />
+        <action
+            android:id="@+id/action_workoutsListFragment_to_createWorkoutFragment"
+            app:destination="@id/createWorkoutFragment" />
     </fragment>
 
     <dialog
@@ -113,5 +104,11 @@
         android:name="com.example.samurairoad.ui.auth.RegisterFragment"
         tools:layout="@layout/fragment_register"
         android:label="RegisterFragment" />
+
+    <fragment
+        android:id="@+id/testFragment"
+        android:name="com.example.samurairoad.ui.TestFragment"
+        android:label="fragment_test"
+        tools:layout="@layout/workout_item_material" />
 
 </navigation>

@@ -43,11 +43,11 @@
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@id/all_workouts_title"
         app:layout_constraintBottom_toTopOf="@id/workout_list_rv"
-        android:iconifiedByDefault="false"
         android:drawablePadding="15dp"
         android:clickable="true"
         android:inputType="text"
         android:focusable="true"
+        style="Widget.Material3.SearchBar"
         />
 
 
@@ -62,6 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_bar"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/workout_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -41,7 +41,10 @@
     <color name="asbestos">#7F8C8D</color>
     <color name="logo_purple">#5a37c3</color>
     <color name="light_dark">#181818</color>
-
+    <color name="profile_gradient1">#FFA992</color>
+    <color name="profile_gradient2">#FD0D92</color>
+    <color name="height_rectangle1">#F1A3B2</color>
+    <color name="height_rectangle2">#EB62BC</color>
 
     <array name="palette_colors">
         <item>@color/turquoise</item>

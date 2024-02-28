@@ -12,7 +12,7 @@
         android:icon="@drawable/exercise_md3" />
 
     <item
-        android:id="@+id/settingsFragment"
+        android:id="@+id/testFragment"
         android:title="@string/public_workouts_title"
         android:icon="@drawable/public_md3" />
 

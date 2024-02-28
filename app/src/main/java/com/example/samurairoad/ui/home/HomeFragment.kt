@@ -1,24 +1,17 @@
 package com.example.samurairoad.ui.home
 
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.example.samurairoad.R
 import com.example.samurairoad.adapters.*
 import com.example.samurairoad.adapters.extensions.ViewPagerExtensions.addCarouselEffect
+import com.example.samurairoad.adapters.models.FavouriteWorkoutModel
 import com.example.samurairoad.adapters.models.HistoryItem
-import com.example.samurairoad.adapters.models.HomeCarouselModel
 import com.example.samurairoad.databinding.FragmentHomeBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -30,13 +23,13 @@ class HomeFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private val carouselItemList = mutableListOf<HomeCarouselModel>()
     private val ItemView = mutableListOf<View>()
 
+    private var favouritesWorkout = mutableListOf<FavouriteWorkoutModel>()
+
     init {
-        carouselItemList.add(HomeCarouselModel("Run", "Test"))
-        carouselItemList.add(HomeCarouselModel("Run", "Test"))
-        carouselItemList.add(HomeCarouselModel("Run", "Test"))
+        favouritesWorkout.add(FavouriteWorkoutModel("Running", R.drawable.ic_run))
+        favouritesWorkout.add(FavouriteWorkoutModel("Running", R.drawable.ic_run))
     }
 
     override fun onCreateView(
@@ -66,6 +59,10 @@ class HomeFragment : Fragment() {
 
         binding.todayTrainingRv.adapter = historyAdapter
 
+        val favouritesAdapter = FavouritesWorkoutAdapter()
+        favouritesAdapter.workouts = favouritesWorkout
+
+        binding.favouritesWorkoutRv.adapter = favouritesAdapter
 
         return binding.root
     }
