@@ -261,6 +261,7 @@
             android:text="@string/activity_profile"/>
 
         <ImageView
+            android:id="@+id/activity_popup_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_morevertical"
@@ -281,6 +282,7 @@
         >
     
         <TextView
+            android:id="@+id/week_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -288,9 +290,11 @@
             android:textColor="@color/white"
             android:layout_weight="1"
             android:background="@drawable/bg_date_button_checked"
+            android:clickable="true"
             />
 
         <TextView
+            android:id="@+id/month_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -298,8 +302,11 @@
             android:textColor="@color/white"
             android:layout_weight="1"
             android:background="@drawable/bd_date_button_unchecked"
+            android:clickable="true"
             />
+
         <TextView
+            android:id="@+id/all_time_tv"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:gravity="center"
@@ -307,6 +314,7 @@
             android:textColor="@color/white"
             android:background="@drawable/bd_date_button_unchecked"
             android:layout_weight="1"
+            android:clickable="true"
             />
 
     </androidx.appcompat.widget.LinearLayoutCompat>

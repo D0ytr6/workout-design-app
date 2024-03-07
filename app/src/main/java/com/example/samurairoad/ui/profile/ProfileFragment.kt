@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import com.example.samurairoad.R
 import com.example.samurairoad.databinding.FragmentProfileBinding
 import com.example.samurairoad.ui.auth.TokenViewModel
 import com.github.mikephil.charting.charts.LineChart
@@ -40,11 +43,33 @@ class ProfileFragment : Fragment() {
             tokenViewModel.deleteRefreshToken()
         }
 
+        binding.weekTv.setOnClickListener {
+            updateChartButtons(it, binding.monthTv, binding.allTimeTv)
+            lineStyle.styleChart(chart, createChartList(ChartType.WEEK), 0f, 6f)
+            setChardData()
+        }
+
+        binding.monthTv.setOnClickListener {
+            updateChartButtons(it, binding.weekTv, binding.allTimeTv)
+            lineStyle.styleChart(chart, createChartList(ChartType.MOTHS), 0f, 30f)
+            setChardData()
+        }
+
+        binding.allTimeTv.setOnClickListener {
+            updateChartButtons(it, binding.monthTv, binding.weekTv)
+        }
+
+        binding.activityPopupIv.setOnClickListener{
+            val popup = PopupMenu(requireContext(), it)
+            popup.inflate(R.menu.profile_chart_menu)
+            popup.show()
+        }
+
         chart = binding.chartActivity
 
-        lineStyle = StatisticLineStyle(requireContext(), createChartList(ChartType.WEEK))
+        lineStyle = StatisticLineStyle(requireContext())
 
-        lineStyle.styleChart(chart)
+        lineStyle.styleChart(chart, createChartList(ChartType.WEEK), 0f, 6f)
 
         setChardData()
 
@@ -104,7 +129,9 @@ class ProfileFragment : Fragment() {
             }
 
             ChartType.MOTHS -> {
-            // TODO
+                for (i in 1..30){
+                    xLabel.add(i.toString())
+                }
             }
 
             ChartType.ALL_TIME -> {
@@ -114,6 +141,12 @@ class ProfileFragment : Fragment() {
 
 
         return xLabel
+    }
+
+    private fun updateChartButtons(checkedView: View, uncheckedView1: View, uncheckedView2: View,){
+        checkedView.background = ContextCompat.getDrawable(requireContext(), R.drawable.bg_date_button_checked)
+        uncheckedView1.background = ContextCompat.getDrawable(requireContext(), R.drawable.bd_date_button_unchecked)
+        uncheckedView2.background = ContextCompat.getDrawable(requireContext(), R.drawable.bd_date_button_unchecked)
     }
 
 }

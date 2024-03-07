@@ -60,6 +60,8 @@
 
     <color name="profile_button_1_un">#1AFFA992</color>
     <color name="profile_button_2_un">#1AFD0D92</color>
+    
+    <color name="chart_text">#80EBEBF5</color>
 
     <array name="palette_colors">
         <item>@color/turquoise</item>

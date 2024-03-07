@@ -46,8 +46,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        app:tint="@color/white"
-                        android:src="@drawable/no_profile" />
+                        android:src="@drawable/avatar_metro" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
