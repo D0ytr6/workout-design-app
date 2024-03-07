@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="ring"
+            android:thickness="2dp"
+            android:useLevel="false"
+            android:innerRadiusRatio="2.1">
+
+            <gradient android:startColor="@color/profile_gradient1"
+                android:endColor="@color/profile_gradient2"
+                android:angle="1"
+                />
+
+        </shape>
+    </item>
+</selector>

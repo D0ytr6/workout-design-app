@@ -1,6 +1,6 @@
 package com.example.samurairoad.adapters.models
 
-data class HomeCarouselModel(
+data class FavouriteWorkoutModel(
     val title: String,
-    val small_data: String,
-    )
+    val imgId: Int,
+)

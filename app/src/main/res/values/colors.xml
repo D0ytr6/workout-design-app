@@ -38,13 +38,28 @@
     <color name="wetasphalt">#34495E</color>
     <color name="midnightblue">#2C3E50</color>
     <color name="concrete">#95A5A6</color>
-    <color name="asbestos">#7F8C8D</color>
+    <color name="asbestos">#7F8C8D</color>4
     <color name="logo_purple">#5a37c3</color>
     <color name="light_dark">#181818</color>
     <color name="profile_gradient1">#FFA992</color>
     <color name="profile_gradient2">#FD0D92</color>
-    <color name="height_rectangle1">#F1A3B2</color>
-    <color name="height_rectangle2">#EB62BC</color>
+
+    <color name="height_rectangle1">#4DF1A3B2</color>
+    <color name="height_rectangle2">#4DEB62BC</color>
+
+    <color name="weight_rectangle1">#6100F0FF</color>
+    <color name="weight_rectangle2">#335D35FF</color>
+
+    <color name="age_rectangle1">#4DFAFF00</color>
+    <color name="age_rectangle2">#59FF6B00</color>
+
+    <color name="height_tv">#99EBEBF5</color>
+    
+    <color name="profile_button_1">#FFA992</color>
+    <color name="profile_button_2">#FD0D92</color>
+
+    <color name="profile_button_1_un">#1AFFA992</color>
+    <color name="profile_button_2_un">#1AFD0D92</color>
 
     <array name="palette_colors">
         <item>@color/turquoise</item>

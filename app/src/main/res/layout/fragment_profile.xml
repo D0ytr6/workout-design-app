@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp">
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -83,12 +83,246 @@
         android:layout_marginTop="5dp"
         />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/height_ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/weight_ll"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:padding="5dp"
+                android:background="@drawable/height_gradient"
+                android:src="@drawable/height_icon"
+                app:tint="#80FD0D92"
+                />
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:id="@+id/height_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="180 CM"
+                    android:fontFamily="@font/sourcesans3regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Height"
+                    android:fontFamily="@font/sourcesans3regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/height_tv"
+
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/weight_ll"
+            app:layout_constraintStart_toEndOf="@id/height_ll"
+            app:layout_constraintEnd_toStartOf="@id/age_ll"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:padding="5dp"
+                android:background="@drawable/weight_gradient"
+                android:src="@drawable/weight_profile"
+                />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:id="@+id/weight_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="62 Kg"
+                    android:fontFamily="@font/sourcesans3regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Weight"
+                    android:fontFamily="@font/sourcesans3regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/height_tv"
+
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/age_ll"
+            app:layout_constraintStart_toEndOf="@id/weight_ll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:padding="5dp"
+                android:background="@drawable/age_gradient"
+                android:src="@drawable/age_profile"
+                />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:id="@+id/age_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="22"
+                    android:fontFamily="@font/sourcesans3regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/white"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Age"
+                    android:fontFamily="@font/sourcesans3regular"
+                    android:textSize="12sp"
+                    android:textColor="@color/height_tv"
+
+                    />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:fontFamily="@font/sourcesans3bold"
+            android:textSize="16sp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:text="@string/activity_profile"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_morevertical"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <!--            TODO fix circle bg-->
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_height="36dp"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_date_buttons"
+        >
+    
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Week"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:background="@drawable/bg_date_button_checked"
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Month"
+            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:background="@drawable/bd_date_button_unchecked"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="All time"
+            android:textColor="@color/white"
+            android:background="@drawable/bd_date_button_unchecked"
+            android:layout_weight="1"
+            />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chartActivity"
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/seekBar1" />
 
     <Button
         android:id="@+id/logout_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout" />
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

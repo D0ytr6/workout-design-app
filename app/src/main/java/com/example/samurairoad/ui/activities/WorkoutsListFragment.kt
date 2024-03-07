@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.samurairoad.R
 import com.example.samurairoad.adapters.ParentWorkoutAdapter
@@ -89,7 +90,9 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
 
         adapter = ParentWorkoutAdapter(this)
 
-        binding.workoutListRv.layoutManager =  StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+//        binding.workoutListRv.layoutManager =  StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+
+        binding.workoutListRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         binding.workoutListRv.adapter = adapter
 
@@ -126,8 +129,6 @@ class WorkoutsListFragment : Fragment(), ParentWorkoutAdapter.OnItemWorkoutClick
 
         return binding.root
     }
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(WorkoutRepository.LifecycleTag, "onViewCreated")
